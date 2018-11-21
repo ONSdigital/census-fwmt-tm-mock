@@ -9,7 +9,7 @@ management.endpoint.health.show-details: always
 
 logging:
   level:
-    root: WARN
+    root: DEBUG
     uk.gov.ons.fwmt: DEBUG
   file: target/SpringErrors/spring.log
   pattern:

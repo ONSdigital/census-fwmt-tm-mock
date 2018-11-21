@@ -1,4 +1,4 @@
-package uk.gov.ons.fwmt.service_mocks.comet.client.invoker;
+package uk.gov.ons.fwmt.service_mocks.comet.configuration;
 
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonTokenId;
@@ -30,6 +30,8 @@ import java.math.BigDecimal;
  */
 public class CustomInstantDeserializer<T extends Temporal>
     extends ThreeTenDateTimeDeserializerBase<T> {
+  private static final long serialVersionUID = 1L;
+
   public static final CustomInstantDeserializer<Instant> INSTANT = new CustomInstantDeserializer<Instant>(
       Instant.class, DateTimeFormatter.ISO_INSTANT,
       new Function<TemporalAccessor, Instant>() {
@@ -52,6 +54,7 @@ public class CustomInstantDeserializer<T extends Temporal>
       },
       null
   );
+
   public static final CustomInstantDeserializer<OffsetDateTime> OFFSET_DATE_TIME = new CustomInstantDeserializer<OffsetDateTime>(
       OffsetDateTime.class, DateTimeFormatter.ISO_OFFSET_DATE_TIME,
       new Function<TemporalAccessor, OffsetDateTime>() {
@@ -79,6 +82,7 @@ public class CustomInstantDeserializer<T extends Temporal>
         }
       }
   );
+
   public static final CustomInstantDeserializer<ZonedDateTime> ZONED_DATE_TIME = new CustomInstantDeserializer<ZonedDateTime>(
       ZonedDateTime.class, DateTimeFormatter.ISO_ZONED_DATE_TIME,
       new Function<TemporalAccessor, ZonedDateTime>() {
@@ -106,7 +110,7 @@ public class CustomInstantDeserializer<T extends Temporal>
         }
       }
   );
-  private static final long serialVersionUID = 1L;
+
   protected final Function<FromIntegerArguments, T> fromMilliseconds;
 
   protected final Function<FromDecimalArguments, T> fromNanoseconds;
