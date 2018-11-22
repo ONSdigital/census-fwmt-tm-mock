@@ -1,4 +1,4 @@
-package uk.gov.ons.fwmt.service_mocks;
+package uk.gov.ons.fwmt.service_mocks.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

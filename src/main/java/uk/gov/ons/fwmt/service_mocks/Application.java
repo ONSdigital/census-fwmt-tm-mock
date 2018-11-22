@@ -1,7 +1,3 @@
-/*
- * Copyright.. etc
- */
-
 package uk.gov.ons.fwmt.service_mocks;
 
 import lombok.extern.slf4j.Slf4j;
