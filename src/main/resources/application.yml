@@ -48,5 +48,6 @@ rabbit:
   password: guest
   port: 15672
   virtualHost: /
+
   
   
