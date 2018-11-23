@@ -31,7 +31,7 @@ after_success:
 - bash <(curl -s https://codecov.io/bash)
 - if [[ "$TRAVIS_BRANCH" = "master" ]] && [[ "$TRAVIS_PULL_REQUEST" = "false" ]] && [[ $TRAVIS_COMMIT_MESSAGE != "JENKINS SNAPSHOT UPDATE" ]];
   then echo "$DOCKER_PASSWORD" | docker login --username "$DOCKER_USERNAME" --password-stdin;
-  docker build -t sdcplatform/fwmtcensustmmock -t sdcplatform/fwmtcensustmmock:tm-census-mock-$TRAVIS_BUILD_NUMBE --build-arg jar=build/libs/fwmt-service-mocks-*.jar;
+  docker build -t sdcplatform/fwmtcensustmmock -t sdcplatform/fwmtcensustmmock:tm-census-mock-$TRAVIS_BUILD_NUMBER --build-arg jar=build/libs/fwmt-service-mocks-*.jar .;
   docker push sdcplatform/fwmtcensustmmock;
   ./gradlew artifactPublish;
   fi
