@@ -3,7 +3,7 @@ server:
 
 spring:
   application:
-    name: fwmt-service-mocks
+    name: fwmt-census-tm-mock
 
   jackson:
     serialization:
