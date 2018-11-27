@@ -1,6 +1,6 @@
 ---
 applications:
-- name: 'Mock-TM'
+- name: 'fwmt-census-tm-mock'
   instances: 1
   timeout: 180
   memory: 1024M

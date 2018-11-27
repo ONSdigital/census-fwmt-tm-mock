@@ -1,5 +1,5 @@
 FROM openjdk:11-jre-slim
-MAINTAINER Kieran Wardle <kieran.wardle@ons.gov.uk>
+MAINTAINER Jacob Harrison <jacob.harrison@ons.gov.uk>
 ARG jar
 VOLUME /tmp
 COPY $jar censusmocktm.jar
