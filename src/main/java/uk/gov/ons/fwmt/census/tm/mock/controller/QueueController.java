@@ -1,4 +1,4 @@
-package uk.gov.ons.fwmt.service_mocks.resource_service.controller;
+package uk.gov.ons.fwmt.census.tm.mock.controller;
 
 
 import java.io.IOException;
