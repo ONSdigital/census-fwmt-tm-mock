@@ -3,7 +3,7 @@ server:
 
 spring:
   application:
-    name: fwmt-service-mocks
+    name: fwmt-census-tm-mocks
 
 management.endpoint.health.show-details: always
 
@@ -33,11 +33,16 @@ totalmobile:
     login-url: "/WebAdmin/Login"
     save-user-url: "/WebAdmin/Administration/Users/SaveUser"
 
-rabbit:
-  host: localhost
-  username: guest
-  password: guest
-  port: 15672
-  virtualHost: /
-  
-  
+rabbitmq:
+  rm:
+    host: localhost
+    username: guest
+    password: guest
+    port: 5672
+    virtualHost: /
+  fwmt:
+    host: localhost
+    username: guest
+    password: guest
+    port: 5672
+    virtualHost: /

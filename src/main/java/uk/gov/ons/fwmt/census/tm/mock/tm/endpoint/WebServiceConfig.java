@@ -1,4 +1,4 @@
-package uk.gov.ons.fwmt.service_mocks.tm.endpoint;
+package uk.gov.ons.fwmt.census.tm.mock.tm.endpoint;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
@@ -12,7 +12,8 @@ import org.springframework.ws.server.EndpointInterceptor;
 import org.springframework.ws.transport.http.MessageDispatcherServlet;
 import org.springframework.ws.wsdl.wsdl11.SimpleWsdl11Definition;
 import org.springframework.ws.wsdl.wsdl11.Wsdl11Definition;
-import uk.gov.ons.fwmt.service_mocks.logging.RawXmlInterceptor;
+
+import uk.gov.ons.fwmt.census.tm.mock.logging.RawXmlInterceptor;
 
 import java.util.List;
 

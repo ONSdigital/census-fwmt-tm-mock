@@ -1,21 +1,21 @@
-package uk.gov.ons.fwmt.service_mocks.logging;
+package uk.gov.ons.fwmt.census.tm.mock.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import uk.gov.ons.fwmt.census.tm.mock.logging.MockLogger;
+import uk.gov.ons.fwmt.census.tm.mock.logging.MockMessage;
+
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import uk.gov.ons.fwmt.service_mocks.logging.MockLogger;
-import uk.gov.ons.fwmt.service_mocks.logging.MockMessage;
-
 @RestController
 @RequestMapping("logger")
 public class MockLoggerController {
-  MockLogger mockLogger;
+  private MockLogger mockLogger;
 
   @Autowired
   public MockLoggerController(MockLogger mockLogger) {
@@ -36,6 +36,4 @@ public class MockLoggerController {
   public void reset() {
     mockLogger.reset();
   }
-
-
 }

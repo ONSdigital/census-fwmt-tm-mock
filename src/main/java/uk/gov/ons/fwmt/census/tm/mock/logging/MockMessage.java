@@ -1,4 +1,4 @@
-package uk.gov.ons.fwmt.service_mocks.logging;
+package uk.gov.ons.fwmt.census.tm.mock.logging;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
