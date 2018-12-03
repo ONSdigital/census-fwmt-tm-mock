@@ -2,7 +2,7 @@
  * Copyright.. etc
  */
 
-package uk.gov.ons.fwmt.service_mocks;
+package uk.gov.ons.fwmt.census.tm.mock;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;

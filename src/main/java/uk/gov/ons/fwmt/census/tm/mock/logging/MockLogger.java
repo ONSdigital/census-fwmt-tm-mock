@@ -1,4 +1,4 @@
-package uk.gov.ons.fwmt.service_mocks.logging;
+package uk.gov.ons.fwmt.census.tm.mock.logging;
 
 import org.springframework.stereotype.Component;
 import org.springframework.web.util.HtmlUtils;

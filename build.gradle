@@ -1,33 +1,36 @@
-apply plugin: 'java'
-apply plugin: 'idea'
-apply plugin: 'application'
-apply plugin: 'org.springframework.boot'
-
-mainClassName = 'uk.gov.ons.fwmt.service_mocks.Application'
-
-description = "fwmt-service-mocks"
-
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
-
-version = '1.0.0'
-
-jar {
-    group = 'uk.gov.ons.fwmt'
-    baseName = 'fwmt-service-mocks'
-    version = version
-}
-
 buildscript {
     repositories {
         mavenCentral()
     }
     dependencies {
-        classpath("org.springframework.boot:spring-boot-gradle-plugin:2.0.2.RELEASE")
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:2.1.0.RELEASE")
     }
 }
 
+apply plugin: 'java'
+apply plugin: 'idea'
+apply plugin: 'eclipse'
+apply plugin: 'application'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
+
+description = "fwmt-census-tm-mocks"
+
+version = '3.0.0-SNAPSHOT'
+
+jar {
+    group = 'uk.gov.ons.fwmt'
+    baseName = 'fwmt-census-tm-mock'
+    version = version
+}
+
+mainClassName = 'uk.gov.ons.fwmt.census.tm.mocks.Application'
+
+sourceCompatibility = 11
+targetCompatibility = 11
+
 repositories {
+	mavenLocal()
     mavenCentral()
     maven { url "http://artifactory-sdc.onsdigital.uk/artifactory/libs-snapshot" }
     maven { url "http://artifactory-sdc.onsdigital.uk/artifactory/libs-release" }
@@ -77,34 +80,47 @@ task genJaxb {
 }
 
 dependencies {
-	compile group: 'uk.gov.ons.fwmt', name: 'fwmt-gateway-common', version: '0.0.8-RELEASE'
-    compile group: 'com.rabbitmq', name: 'amqp-client', version: '5.4.2'
-    compile group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: '1.5.13.RELEASE'
-    compile group: 'org.springframework.boot', name: 'spring-boot-starter-web-services', version: '1.5.13.RELEASE'
-    compile(group: 'org.springframework.cloud', name: 'spring-cloud-spring-service-connector', version: '1.2.5.RELEASE') {
-        exclude(module: 'log4j')
+	compile("uk.gov.ons.fwmt:fwmt-gateway-common:0.0.8-RELEASE")
+
+	jaxb("javax.xml.bind:jaxb-api:2.3.0")
+	jaxb("com.sun.xml.bind:jaxb-core:2.3.0.1")
+	jaxb("com.sun.xml.bind:jaxb-impl:2.3.1")
+	jaxb("com.sun.xml.bind:jaxb-xjc:2.3.1")
+	jaxb("javax.activation:activation:1.1.1")
+
+	compile("javax.xml.bind:jaxb-api:2.3.0")
+    compile("com.sun.xml.bind:jaxb-core:2.3.0.1")
+    compile("com.sun.xml.bind:jaxb-impl:2.3.1")
+    compile("com.sun.xml.bind:jaxb-xjc:2.3.1")
+    compile("javax.activation:activation:1.1.1")
+
+    compile(files((String) genJaxb.classesDir).builtBy(genJaxb))
+
+    compile("org.springframework.boot:spring-boot-starter-web")
+    compile("org.springframework.boot:spring-boot-starter-web-services")
+    compile("org.springframework.cloud:spring-cloud-spring-service-connector") {
+        exclude(module: "log4j")
     }
-   compile(group: 'org.springframework.cloud', name: 'spring-cloud-cloudfoundry-connector', version: '1.2.5.RELEASE') {
-        exclude(module: 'log4j')
+    compile("org.springframework.cloud:spring-cloud-cloudfoundry-connector") {
+        exclude(module: "log4j")
     }
-    compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.7'
-    compile group: 'org.jsoup', name: 'jsoup', version: '1.11.3'
-    compile group: 'org.json', name: 'json', version: '20180130'
-    compile group: 'org.projectlombok', name: 'lombok', version: '1.16.8'
-    compile group: 'org.yaml', name: 'snakeyaml', version: '1.21'
 
-    compile group: 'io.springfox', name: 'springfox-swagger2', version: '2.9.0'
-    compile group: 'io.springfox', name: 'springfox-swagger-ui', version: '2.9.0'
+    compile("com.fasterxml.jackson.core:jackson-databind")
+    compile("com.fasterxml.jackson.datatype:jackson-datatype-jsr310")
+    compile("com.rabbitmq:amqp-client")
 
-    compile(files(genJaxb.classesDir).builtBy(genJaxb))
-    jaxb "com.sun.xml.bind:jaxb-xjc:2.1.7"
+    compile("io.springfox:springfox-swagger2:2.9.2")
+    compile("io.springfox:springfox-swagger-ui:2.9.2")
 
-    compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.9.5'
-    compile group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-jsr310', version: '2.9.5'
+    compile("org.apache.commons:commons-lang3")
+    compile("org.jsoup:jsoup:1.11.3")
+    compile("org.json:json:20180813")
+    compile("org.projectlombok:lombok")
+    annotationProcessor("org.projectlombok:lombok")
+    compile("org.yaml:snakeyaml")
 
-    testCompile(group: 'org.springframework.boot', name: 'spring-boot-starter-test', version: '1.5.9.RELEASE') {
-        exclude(module: 'android-json')
+    testCompile("org.springframework.boot:spring-boot-starter-test") {
+        exclude(module: "android-json")
     }
-    testCompile "junit:junit:4.12"
+    testCompile("junit:junit")
 }
-
