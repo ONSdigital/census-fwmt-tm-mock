@@ -11,8 +11,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @SpringBootApplication
 @EnableSwagger2
 @Slf4j
-@ComponentScan(basePackages = {"uk.gov.ons.fwmt.census.tm.mock", "uk.gov.ons.fwmt.census.tm.mock.tm.comet.api",
-    "uk.gov.ons.fwmt.census.tm.mock.tm.comet.configuration"})
+@ComponentScan(basePackages = {"uk.gov.ons.fwmt.census.tm.mock"})
 public class Application implements CommandLineRunner {
 
   public static void main(String[] args) {
