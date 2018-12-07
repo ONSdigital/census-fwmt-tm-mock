@@ -8,13 +8,12 @@ import com.consiliumtechnologies.schemas.mobile._2009._03.visitsmessages.UpdateV
 import com.consiliumtechnologies.schemas.mobile._2009._07.formsmessages.SubmitFormResultRequest;
 import com.consiliumtechnologies.schemas.mobile._2009._09.compositemessages.CompositeVisitRequest;
 import lombok.extern.slf4j.Slf4j;
-import uk.gov.ons.fwmt.census.tm.mock.logging.MockLogger;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ws.server.endpoint.annotation.Endpoint;
 import org.springframework.ws.server.endpoint.annotation.PayloadRoot;
 import org.springframework.ws.server.endpoint.annotation.RequestPayload;
 import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
+import uk.gov.ons.fwmt.census.tm.mock.logging.MockLogger;
 
 import javax.xml.bind.JAXBElement;
 

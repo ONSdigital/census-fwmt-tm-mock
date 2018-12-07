@@ -1,9 +1,11 @@
 package uk.gov.ons.fwmt.census.tm.mock.controller;
 
-
-import java.io.IOException;
-import java.util.concurrent.TimeoutException;
-
+import com.rabbitmq.client.AMQP.BasicProperties;
+import com.rabbitmq.client.Channel;
+import com.rabbitmq.client.Connection;
+import com.rabbitmq.client.ConnectionFactory;
+import com.rabbitmq.client.GetResponse;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -15,13 +17,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.rabbitmq.client.AMQP.BasicProperties;
-import com.rabbitmq.client.Channel;
-import com.rabbitmq.client.Connection;
-import com.rabbitmq.client.ConnectionFactory;
-import com.rabbitmq.client.GetResponse;
-
-import lombok.extern.slf4j.Slf4j;
+import java.io.IOException;
+import java.util.concurrent.TimeoutException;
 
 @Slf4j
 @RestController
@@ -30,44 +27,44 @@ public class QueueController {
 
   @Value("${rabbitmq.fwmt.host}")
   private String rabbitmqFwmtHost;
-  
+
   @Value("${rabbitmq.fwmt.username}")
   private String rabbitmqFwmtUsername;
-  
+
   @Value("${rabbitmq.fwmt.password}")
   private String rabbitmqFwmtPassword;
-  
+
   @Value("${rabbitmq.fwmt.port}")
   private int rabbitmqFwmtPort;
-  
+
   @Value("${rabbitmq.fwmt.virtualHost}")
   private String rabbitmqFwmtVirtualHost;
 
   @Value("${rabbitmq.rm.host}")
   private String rabbitmqRmHost;
-  
+
   @Value("${rabbitmq.rm.username}")
   private String rabbitmqRmUsername;
-  
+
   @Value("${rabbitmq.rm.password}")
   private String rabbitmqRmPassword;
-  
+
   @Value("${rabbitmq.rm.port}")
   private int rabbitmqRmPort;
-  
+
   @Value("${rabbitmq.rm.virtualHost}")
   private String rabbitmqRmVirtualHost;
-  
+
   @GetMapping(value = "/message", produces = "application/json")
   public ResponseEntity<String> getMessageOffQueue(@RequestParam("qname") String qname) {
     Connection connection = null;
     Channel channel = null;
     ConnectionFactory factory = null;
-    
+
     try {
-      if(qname.toUpperCase().contains("ACTION.FIELD")){
+      if (qname.toUpperCase().contains("ACTION.FIELD")) {
         log.info("Building RM RabbitMQ Factory");
-      }else{
+      } else {
         factory = getFwmtConnectionFactory();
         log.info("Building FWMT RabbitMQ Factory");
       }
@@ -102,11 +99,11 @@ public class QueueController {
     Connection connection = null;
     Channel channel = null;
     ConnectionFactory factory = null;
-    
+
     try {
-      if(qname.toUpperCase().contains("ACTION.FIELD")){
+      if (qname.toUpperCase().contains("ACTION.FIELD")) {
         log.info("Building RM RabbitMQ Factory");
-      }else{
+      } else {
         factory = getFwmtConnectionFactory();
         log.info("Building FWMT RabbitMQ Factory");
       }
@@ -130,7 +127,7 @@ public class QueueController {
       }
     }
   }
-  
+
   private ConnectionFactory getFwmtConnectionFactory() {
     ConnectionFactory factory = new ConnectionFactory();
     factory.setHost(rabbitmqFwmtHost);
@@ -139,7 +136,7 @@ public class QueueController {
     factory.setVirtualHost(rabbitmqFwmtVirtualHost);
     return factory;
   }
-  
+
   private ConnectionFactory getRmConnectionFactory() {
     ConnectionFactory factory = new ConnectionFactory();
     factory.setHost(rabbitmqRmHost);
@@ -148,22 +145,23 @@ public class QueueController {
     factory.setVirtualHost(rabbitmqRmVirtualHost);
     return factory;
   }
-  
+
   @PostMapping(value = "/")
-  public ResponseEntity<Boolean> addMessage(@RequestParam("exchange") String exchange, @RequestParam("routingkey") String routingkey, @RequestBody String message ){
+  public ResponseEntity<Boolean> addMessage(@RequestParam("exchange") String exchange,
+      @RequestParam("routingkey") String routingkey, @RequestBody String message) {
     Connection connection = null;
     Channel channel = null;
     ConnectionFactory factory = null;
-    
+
     try {
-      if(routingkey.toUpperCase().contains("ACTION.FIELD")){
+      if (routingkey.toUpperCase().contains("ACTION.FIELD")) {
         factory = getRmConnectionFactory();
         log.info("Building RM RabbitMQ Factory");
-      }else{
+      } else {
         factory = getFwmtConnectionFactory();
         log.info("Building FWMT RabbitMQ Factory");
       }
-      
+
       connection = factory.newConnection();
       channel = connection.createChannel();
 
@@ -180,24 +178,26 @@ public class QueueController {
       return ResponseEntity.badRequest().build();
     } finally {
       try {
-          if (channel!=null) channel.close();
-          if (connection!=null) connection.close();
-        } catch (IOException | TimeoutException e) {
-          e.printStackTrace();
-        }
+        if (channel != null)
+          channel.close();
+        if (connection != null)
+          connection.close();
+      } catch (IOException | TimeoutException e) {
+        e.printStackTrace();
+      }
     }
-  }  
-  
+  }
+
   @DeleteMapping()
-  public ResponseEntity<Boolean> deleteMessage(@RequestParam("qname") String qname){
+  public ResponseEntity<Boolean> deleteMessage(@RequestParam("qname") String qname) {
     Connection connection = null;
     Channel channel = null;
     ConnectionFactory factory = null;
-    
+
     try {
-      if(qname.toUpperCase().contains("ACTION.FIELD")){
+      if (qname.toUpperCase().contains("ACTION.FIELD")) {
         log.info("Building RM RabbitMQ Factory");
-      }else{
+      } else {
         factory = getFwmtConnectionFactory();
         log.info("Building FWMT RabbitMQ Factory");
       }
@@ -212,12 +212,14 @@ public class QueueController {
       return ResponseEntity.badRequest().build();
     } finally {
       try {
-          if (channel!=null) channel.close();
-          if (connection!=null) connection.close();
-        } catch (IOException | TimeoutException e) {
-          e.printStackTrace();
-        }
+        if (channel != null)
+          channel.close();
+        if (connection != null)
+          connection.close();
+      } catch (IOException | TimeoutException e) {
+        e.printStackTrace();
+      }
     }
   }
-  
+
 }

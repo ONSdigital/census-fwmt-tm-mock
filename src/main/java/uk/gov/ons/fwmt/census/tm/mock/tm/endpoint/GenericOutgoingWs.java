@@ -2,13 +2,12 @@ package uk.gov.ons.fwmt.census.tm.mock.tm.endpoint;
 
 import com.consiliumtechnologies.schemas.services.mobile._2009._03.messaging.WebServiceAdapterOutputRequest;
 import lombok.extern.slf4j.Slf4j;
-import uk.gov.ons.fwmt.census.tm.mock.logging.MockLogger;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ws.server.endpoint.annotation.Endpoint;
 import org.springframework.ws.server.endpoint.annotation.PayloadRoot;
 import org.springframework.ws.server.endpoint.annotation.RequestPayload;
 import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
+import uk.gov.ons.fwmt.census.tm.mock.logging.MockLogger;
 
 import javax.xml.bind.JAXBElement;
 import javax.xml.namespace.QName;
