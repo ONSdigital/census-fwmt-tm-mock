@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
+import uk.gov.ons.fwmt.census.tm.mock.logging.MockLogger;
 import uk.gov.ons.fwmt.census.tm.mock.tm.comet.model.FetchResponseCase;
 import uk.gov.ons.fwmt.census.tm.mock.tm.comet.model.ModelCase;
 
@@ -24,18 +25,22 @@ public class CasesApiController implements CasesApi {
 
   private static final Logger log = LoggerFactory.getLogger(CasesApiController.class);
 
+  private MockLogger mockLogger;
+
   private final ObjectMapper objectMapper;
 
   private final HttpServletRequest request;
 
   @Autowired
-  public CasesApiController(ObjectMapper objectMapper, HttpServletRequest request) {
+  public CasesApiController(MockLogger mockLogger, ObjectMapper objectMapper, HttpServletRequest request) {
+    this.mockLogger = mockLogger;
     this.objectMapper = objectMapper;
     this.request = request;
   }
 
   public ResponseEntity<ModelCase> casesByIdGet(
       @ApiParam(value = "Unique Id for Visit", required = true) @PathVariable("id") String id) {
+    mockLogger.logEndpoint("CasesApiController", "casesByIdGet");
     String accept = request.getHeader("Accept");
     return new ResponseEntity<ModelCase>(HttpStatus.NOT_IMPLEMENTED);
   }
@@ -43,6 +48,7 @@ public class CasesApiController implements CasesApi {
   public ResponseEntity<Void> casesByIdPost(
       @ApiParam(value = "Identifier.", required = true) @PathVariable("id") String id,
       @ApiParam(value = "Case object.") @Valid @RequestBody ModelCase body) {
+    mockLogger.logEndpoint("CasesApiController", "casesByIdPost");
     String accept = request.getHeader("Accept");
     return new ResponseEntity<Void>(HttpStatus.NOT_IMPLEMENTED);
   }
@@ -54,6 +60,7 @@ public class CasesApiController implements CasesApi {
       @Valid @RequestParam(value = "pageNo", required = false) Integer pageNo,
       @ApiParam(value = "Specify the maximum number of results to return per request.")
       @Valid @RequestParam(value = "pageSize", required = false) Integer pageSize) {
+    mockLogger.logEndpoint("CasesApiController", "casesGet");
     String accept = request.getHeader("Accept");
     return new ResponseEntity<FetchResponseCase>(HttpStatus.NOT_IMPLEMENTED);
   }
