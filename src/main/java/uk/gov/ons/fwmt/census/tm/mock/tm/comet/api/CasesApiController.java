@@ -44,7 +44,7 @@ public class CasesApiController implements CasesApi {
       @ApiParam(value = "Identifier.", required = true) @PathVariable("id") String id,
       @ApiParam(value = "Case object.") @Valid @RequestBody ModelCase body) {
     String accept = request.getHeader("Accept");
-    return new ResponseEntity<Void>(HttpStatus.NOT_IMPLEMENTED);
+    return new ResponseEntity<Void>(HttpStatus.OK);
   }
 
   public ResponseEntity<FetchResponseCase> casesGet(
