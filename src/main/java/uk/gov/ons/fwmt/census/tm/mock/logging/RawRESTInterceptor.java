@@ -29,7 +29,7 @@ public class RawRESTInterceptor implements HandlerInterceptor {
     }
 
     mockLogger.logRawRequest(builder.toString(), body);
-    return false;
+    return true;
   }
 
   @Override public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler,
