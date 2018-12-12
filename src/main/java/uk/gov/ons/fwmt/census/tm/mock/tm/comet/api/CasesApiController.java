@@ -15,10 +15,11 @@ import uk.gov.ons.fwmt.census.tm.mock.logging.MockLogger;
 import uk.gov.ons.fwmt.census.tm.mock.tm.comet.model.FetchResponseCase;
 import uk.gov.ons.fwmt.census.tm.mock.tm.comet.model.ModelCase;
 
+import javax.annotation.Generated;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2018-12-07T11:49:58.389925Z[Europe/London]")
+@Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2018-12-07T11:49:58.389925Z[Europe/London]")
 
 @Controller
 public class CasesApiController implements CasesApi {
@@ -50,6 +51,7 @@ public class CasesApiController implements CasesApi {
       @ApiParam(value = "Case object.") @Valid @RequestBody ModelCase body) {
     mockLogger.logEndpoint("CasesApiController", "casesByIdPost");
     String accept = request.getHeader("Accept");
+    log.info("Job Recreived: " + body.getId());
     return new ResponseEntity<Void>(HttpStatus.OK);
   }
 
@@ -64,5 +66,4 @@ public class CasesApiController implements CasesApi {
     String accept = request.getHeader("Accept");
     return new ResponseEntity<FetchResponseCase>(HttpStatus.NOT_IMPLEMENTED);
   }
-
 }

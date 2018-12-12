@@ -6,11 +6,10 @@ server:
 spring:
   application:
     name: fwmt-census-tm-mocks
-
-  security.user:
-    name: "user"
-    password: "password"
-
+  security:
+    user:
+      name: "user"
+      password: "password"
   jackson:
     date-format: uk.gov.ons.fwmt.census.tm.mock.RFC3339DateFormat
     serialization:
@@ -40,7 +39,6 @@ totalmobile:
   web:
     login-url: "/WebAdmin/Login"
     save-user-url: "/WebAdmin/Administration/Users/SaveUser"
-
 
 rabbitmq:
   rm:
