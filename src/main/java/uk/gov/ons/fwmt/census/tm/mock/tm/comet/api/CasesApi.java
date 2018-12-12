@@ -26,34 +26,52 @@ import javax.validation.Valid;
 @Api(value = "cases", description = "the cases API")
 public interface CasesApi {
 
-  @ApiOperation(value = "Get Case by Id", nickname = "casesByIdGet", notes = "Gets the Case with matching id", response = ModelCase.class, tags = {
-      "Cases",})
+  @ApiOperation(
+      value = "Get Case by Id",
+      nickname = "casesByIdGet",
+      notes = "Gets the Case with matching id",
+      response = ModelCase.class,
+      tags = {"Cases",})
   @ApiResponses(value = {
       @ApiResponse(code = 200, message = "Case was returned", response = ModelCase.class),
       @ApiResponse(code = 400, message = "Error(s) found in include criteria"),
       @ApiResponse(code = 404, message = "Case was not found")})
-  @RequestMapping(value = "/cases/{id}",
+  @RequestMapping(
+      value = "/cases/{id}",
       produces = {"application/json"},
       method = RequestMethod.GET)
   ResponseEntity<ModelCase> casesByIdGet(
-      @ApiParam(value = "Unique Id for Visit", required = true) @PathVariable("id") String id);
+      @ApiParam(value = "Unique Id for Visit", required = true)
+      @PathVariable("id") String id);
 
-  @ApiOperation(value = "Post the specified id and caseObject.", nickname = "casesByIdPost", notes = "", tags = {
-      "Cases",})
+  @ApiOperation(
+      value = "Post the specified id and caseObject.",
+      nickname = "casesByIdPost",
+      notes = "",
+      tags = {"Cases",})
   @ApiResponses(value = {
       @ApiResponse(code = 200, message = "Success")})
-  @RequestMapping(value = "/cases/{id}",
+  @RequestMapping(
+      value = "/cases/{id}",
       consumes = {"application/json-patch+json", "application/json", "text/json", "application/_*+json"},
       method = RequestMethod.POST)
-  ResponseEntity<Void> casesByIdPost(@ApiParam(value = "Identifier.", required = true) @PathVariable("id") String id,
-      @ApiParam(value = "Case object.") @Valid @RequestBody ModelCase body);
+  ResponseEntity<Void> casesByIdPost(
+      @ApiParam(value = "Identifier.", required = true)
+      @PathVariable("id") String id,
+      @ApiParam(value = "Case object.") @Valid
+      @RequestBody ModelCase body);
 
-  @ApiOperation(value = "Get the Cases", nickname = "casesGet", notes = "Get a paginated List of Cases", response = FetchResponseCase.class, tags = {
-      "Cases",})
+  @ApiOperation(
+      value = "Get the Cases",
+      nickname = "casesGet",
+      notes = "Get a paginated List of Cases",
+      response = FetchResponseCase.class,
+      tags = {"Cases",})
   @ApiResponses(value = {
       @ApiResponse(code = 200, message = "List of Cases was returned", response = FetchResponseCase.class),
       @ApiResponse(code = 400, message = "Error(s) found in fetch criteria")})
-  @RequestMapping(value = "/cases",
+  @RequestMapping(
+      value = "/cases",
       produces = {"application/json"},
       method = RequestMethod.GET)
   ResponseEntity<FetchResponseCase> casesGet(
@@ -63,5 +81,4 @@ public interface CasesApi {
       @Valid @RequestParam(value = "pageNo", required = false) Integer pageNo,
       @ApiParam(value = "Specify the maximum number of results to return per request.")
       @Valid @RequestParam(value = "pageSize", required = false) Integer pageSize);
-
 }

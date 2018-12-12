@@ -3,6 +3,7 @@ package uk.gov.ons.fwmt.census.tm.mock.tm.comet.configuration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import springfox.documentation.builders.ApiInfoBuilder;
+import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.service.ApiInfo;
 import springfox.documentation.service.Contact;
@@ -13,6 +14,19 @@ import springfox.documentation.spring.web.plugins.Docket;
 
 @Configuration
 public class SwaggerDocumentationConfig {
+  @Bean
+  public Docket api() {
+    return new Docket(DocumentationType.SWAGGER_2)
+        .select()
+        .apis(RequestHandlerSelectors.any())
+        // the line below is the old selector, which limits access heavily, preventing the use of the mock monitoring endpoint
+        // .apis(RequestHandlerSelectors.basePackage("uk.gov.ons.fwmt.census.tm.mock.tm.comet.api"))
+        .paths(PathSelectors.any())
+        .build()
+        .directModelSubstitute(org.threeten.bp.LocalDate.class, java.sql.Date.class)
+        .directModelSubstitute(org.threeten.bp.OffsetDateTime.class, java.util.Date.class)
+        .apiInfo(apiInfo());
+  }
 
   ApiInfo apiInfo() {
     return new ApiInfoBuilder()
@@ -25,17 +39,6 @@ public class SwaggerDocumentationConfig {
         .version("v1")
         .contact(new Contact("", "", ""))
         .build();
-  }
-
-  @Bean
-  public Docket customImplementation() {
-    return new Docket(DocumentationType.SWAGGER_2)
-        .select()
-        .apis(RequestHandlerSelectors.basePackage("uk.gov.ons.fwmt.census.tm.mock.tm.comet.api"))
-        .build()
-        .directModelSubstitute(org.threeten.bp.LocalDate.class, java.sql.Date.class)
-        .directModelSubstitute(org.threeten.bp.OffsetDateTime.class, java.util.Date.class)
-        .apiInfo(apiInfo());
   }
 
 }

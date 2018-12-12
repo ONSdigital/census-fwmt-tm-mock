@@ -17,6 +17,7 @@ public class RawRESTInterceptor implements HandlerInterceptor {
   @Override public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
     ContentCachingRequestWrapper requestCacheWrapperObject = new ContentCachingRequestWrapper(request);
     requestCacheWrapperObject.getParameterMap(); // this is required to force caching to occur
+
     String body = new String((requestCacheWrapperObject).getContentAsByteArray());
 
     Collection<String> headers = Collections.list(requestCacheWrapperObject.getHeaderNames());
@@ -42,6 +43,10 @@ public class RawRESTInterceptor implements HandlerInterceptor {
       builder.append(": ");
       builder.append(value);
     }
-    mockLogger.logRawResponse(builder.toString(), null);
+    if (ex != null) {
+      mockLogger.logRawFault(builder.toString(), null);
+    } else {
+      mockLogger.logRawResponse(builder.toString(), null);
+    }
   }
 }
