@@ -44,14 +44,16 @@ public class ModelCase {
 
   @JsonProperty("coordCode")
   private String coordCode = null;
+  @JsonProperty("visitCount")
+  private Integer visitCount = null;
+
   @JsonProperty("warnings")
   @Valid
   private List<Warning> warnings = null;
+
   @JsonProperty("notes")
   @Valid
   private List<Note> notes = null;
-  @JsonProperty("visitCount")
-  private Integer visitCount = null;
 
   @JsonProperty("contact")
   private Contact contact = null;
@@ -76,19 +78,6 @@ public class ModelCase {
 
   @JsonProperty("holdUntil")
   private OffsetDateTime holdUntil = null;
-
-  /**
-   * Get id
-   *
-   * @return id
-   **/
-  @ApiModelProperty(required = true, value = "")
-  @NotNull
-
-  public String getId() {
-    return id;
-  }
-
   @JsonProperty("_links")
   @Valid
   private List<Link> _links = null;
@@ -99,13 +88,15 @@ public class ModelCase {
   }
 
   /**
-   * Get reference
-   * @return reference
+   * Get id
+   * @return id
    **/
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(required = true, value = "")
+  @NotNull
 
-  public String getReference() {
-    return reference;
+
+  public String getId() {
+    return id;
   }
 
   public void setId(String id) {
@@ -117,8 +108,29 @@ public class ModelCase {
     return this;
   }
 
+  /**
+   * Get reference
+   * @return reference
+   **/
+  @ApiModelProperty(value = "")
+
+
+  public String getReference() {
+    return reference;
+  }
+
+  public ModelCase caseType(String caseType) {
+    this.caseType = caseType;
+    return this;
+  }
+
   public void setReference(String reference) {
     this.reference = reference;
+  }
+
+  public ModelCase state(StateEnum state) {
+    this.state = state;
+    return this;
   }
 
   /**
@@ -137,8 +149,8 @@ public class ModelCase {
     this.caseType = caseType;
   }
 
-  public ModelCase caseType(String caseType) {
-    this.caseType = caseType;
+  public ModelCase category(String category) {
+    this.category = category;
     return this;
   }
 
@@ -158,8 +170,8 @@ public class ModelCase {
     this.state = state;
   }
 
-  public ModelCase state(StateEnum state) {
-    this.state = state;
+  public ModelCase estabType(String estabType) {
+    this.estabType = estabType;
     return this;
   }
 
@@ -178,8 +190,8 @@ public class ModelCase {
     this.category = category;
   }
 
-  public ModelCase category(String category) {
-    this.category = category;
+  public ModelCase coordCode(String coordCode) {
+    this.coordCode = coordCode;
     return this;
   }
 
@@ -198,11 +210,6 @@ public class ModelCase {
     this.estabType = estabType;
   }
 
-  public ModelCase estabType(String estabType) {
-    this.estabType = estabType;
-    return this;
-  }
-
   /**
    * Get coordCode
    * @return coordCode
@@ -210,22 +217,29 @@ public class ModelCase {
   @ApiModelProperty(required = true, value = "")
   @NotNull
 
+
   public String getCoordCode() {
     return coordCode;
   }
 
-  public ModelCase coordCode(String coordCode) {
+  public void setCoordCode(String coordCode) {
     this.coordCode = coordCode;
-    return this;
+  }
+
+  /**
+   * Get htc
+   *
+   * @return htc
+   **/
+  @ApiModelProperty(value = "")
+
+  public Integer getHtc() {
+    return htc;
   }
 
   public ModelCase outcomes(List<Outcome> outcomes) {
     this.outcomes = outcomes;
     return this;
-  }
-
-  public void setCoordCode(String coordCode) {
-    this.coordCode = coordCode;
   }
 
   public ModelCase addOutcomesItem(Outcome outcomesItem) {
@@ -238,7 +252,6 @@ public class ModelCase {
 
   /**
    * Get outcomes
-   *
    * @return outcomes
    **/
   @ApiModelProperty(value = "")
@@ -268,7 +281,6 @@ public class ModelCase {
 
   /**
    * Get warnings
-   *
    * @return warnings
    **/
   @ApiModelProperty(value = "")
@@ -298,7 +310,6 @@ public class ModelCase {
 
   /**
    * Get notes
-   *
    * @return notes
    **/
   @ApiModelProperty(value = "")
@@ -311,17 +322,6 @@ public class ModelCase {
 
   public void setNotes(List<Note> notes) {
     this.notes = notes;
-  }
-
-  /**
-   * Get htc
-   *
-   * @return htc
-   **/
-  @ApiModelProperty(value = "")
-
-  public Integer getHtc() {
-    return htc;
   }
 
   public ModelCase contact(Contact contact) {
@@ -392,16 +392,6 @@ public class ModelCase {
     return this;
   }
 
-  /**
-   * Get priority
-   * @return priority
-   **/
-  @ApiModelProperty(value = "")
-
-  public Integer getPriority() {
-    return priority;
-  }
-
   public void setHtc(Integer htc) {
     this.htc = htc;
   }
@@ -412,13 +402,14 @@ public class ModelCase {
   }
 
   /**
-   * Get description
-   * @return description
+   * Get priority
+   * @return priority
    **/
   @ApiModelProperty(value = "")
 
-  public String getDescription() {
-    return description;
+
+  public Integer getPriority() {
+    return priority;
   }
 
   public void setPriority(Integer priority) {
@@ -431,13 +422,14 @@ public class ModelCase {
   }
 
   /**
-   * Get specialInstructions
-   * @return specialInstructions
+   * Get description
+   * @return description
    **/
   @ApiModelProperty(value = "")
 
-  public String getSpecialInstructions() {
-    return specialInstructions;
+
+  public String getDescription() {
+    return description;
   }
 
   public void setDescription(String description) {
@@ -447,6 +439,30 @@ public class ModelCase {
   public ModelCase specialInstructions(String specialInstructions) {
     this.specialInstructions = specialInstructions;
     return this;
+  }
+
+  /**
+   * Get specialInstructions
+   * @return specialInstructions
+   **/
+  @ApiModelProperty(value = "")
+
+
+  public String getSpecialInstructions() {
+    return specialInstructions;
+  }
+
+  public void setSpecialInstructions(String specialInstructions) {
+    this.specialInstructions = specialInstructions;
+  }
+
+  public ModelCase holdUntil(OffsetDateTime holdUntil) {
+    this.holdUntil = holdUntil;
+    return this;
+  }
+
+  public void setHoldUntil(OffsetDateTime holdUntil) {
+    this.holdUntil = holdUntil;
   }
 
   /**
@@ -461,24 +477,6 @@ public class ModelCase {
     return holdUntil;
   }
 
-  public void setSpecialInstructions(String specialInstructions) {
-    this.specialInstructions = specialInstructions;
-  }
-
-  public ModelCase holdUntil(OffsetDateTime holdUntil) {
-    this.holdUntil = holdUntil;
-    return this;
-  }
-
-  public ModelCase visitCount(Integer visitCount) {
-    this.visitCount = visitCount;
-    return this;
-  }
-
-  public void setHoldUntil(OffsetDateTime holdUntil) {
-    this.holdUntil = holdUntil;
-  }
-
   /**
    * Get visitCount
    * @return visitCount
@@ -489,44 +487,18 @@ public class ModelCase {
     return visitCount;
   }
 
-  public void setVisitCount(Integer visitCount) {
+  public ModelCase visitCount(Integer visitCount) {
     this.visitCount = visitCount;
-  }
-
-  @Override
-  public boolean equals(java.lang.Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
-    }
-    ModelCase _case = (ModelCase) o;
-    return Objects.equals(this.id, _case.id) &&
-        Objects.equals(this.reference, _case.reference) &&
-        Objects.equals(this.caseType, _case.caseType) &&
-        Objects.equals(this.state, _case.state) &&
-        Objects.equals(this.category, _case.category) &&
-        Objects.equals(this.estabType, _case.estabType) &&
-        Objects.equals(this.coordCode, _case.coordCode) &&
-        Objects.equals(this.outcomes, _case.outcomes) &&
-        Objects.equals(this.warnings, _case.warnings) &&
-        Objects.equals(this.notes, _case.notes) &&
-        Objects.equals(this.contact, _case.contact) &&
-        Objects.equals(this.address, _case.address) &&
-        Objects.equals(this.location, _case.location) &&
-        Objects.equals(this.htc, _case.htc) &&
-        Objects.equals(this.priority, _case.priority) &&
-        Objects.equals(this.description, _case.description) &&
-        Objects.equals(this.specialInstructions, _case.specialInstructions) &&
-        Objects.equals(this.holdUntil, _case.holdUntil) &&
-        Objects.equals(this.visitCount, _case.visitCount) &&
-        Objects.equals(this._links, _case._links);
+    return this;
   }
 
   public ModelCase _links(List<Link> _links) {
     this._links = _links;
     return this;
+  }
+
+  public void setVisitCount(Integer visitCount) {
+    this.visitCount = visitCount;
   }
 
   public ModelCase addLinksItem(Link _linksItem) {
@@ -559,6 +531,69 @@ public class ModelCase {
     return Objects
         .hash(id, reference, caseType, state, category, estabType, coordCode, outcomes, warnings, notes, contact,
             address, location, htc, priority, description, specialInstructions, holdUntil, visitCount, _links);
+  }
+
+
+  @Override
+  public boolean equals(java.lang.Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    ModelCase _case = (ModelCase) o;
+    return Objects.equals(this.id, _case.id) &&
+        Objects.equals(this.reference, _case.reference) &&
+        Objects.equals(this.caseType, _case.caseType) &&
+        Objects.equals(this.state, _case.state) &&
+        Objects.equals(this.category, _case.category) &&
+        Objects.equals(this.estabType, _case.estabType) &&
+        Objects.equals(this.coordCode, _case.coordCode) &&
+        Objects.equals(this.outcomes, _case.outcomes) &&
+        Objects.equals(this.warnings, _case.warnings) &&
+        Objects.equals(this.notes, _case.notes) &&
+        Objects.equals(this.contact, _case.contact) &&
+        Objects.equals(this.address, _case.address) &&
+        Objects.equals(this.location, _case.location) &&
+        Objects.equals(this.htc, _case.htc) &&
+        Objects.equals(this.priority, _case.priority) &&
+        Objects.equals(this.description, _case.description) &&
+        Objects.equals(this.specialInstructions, _case.specialInstructions) &&
+        Objects.equals(this.holdUntil, _case.holdUntil) &&
+        Objects.equals(this.visitCount, _case.visitCount) &&
+        Objects.equals(this._links, _case._links);
+  }
+
+  /**
+   * Gets or Sets state
+   */
+  public enum StateEnum {
+    OPEN("open"),
+
+    CLOSED("closed");
+
+    private String value;
+
+    StateEnum(String value) {
+      this.value = value;
+    }
+
+    @JsonCreator
+    public static StateEnum fromValue(String text) {
+      for (StateEnum b : StateEnum.values()) {
+        if (String.valueOf(b.value).equals(text)) {
+          return b;
+        }
+      }
+      return null;
+    }
+
+    @Override
+    @JsonValue
+    public String toString() {
+      return String.valueOf(value);
+    }
   }
 
   @Override
@@ -599,37 +634,6 @@ public class ModelCase {
       return "null";
     }
     return o.toString().replace("\n", "\n    ");
-  }
-
-  /**
-   * Gets or Sets state
-   */
-  public enum StateEnum {
-    OPEN("open"),
-
-    CLOSED("closed");
-
-    private String value;
-
-    StateEnum(String value) {
-      this.value = value;
-    }
-
-    @JsonCreator
-    public static StateEnum fromValue(String text) {
-      for (StateEnum b : StateEnum.values()) {
-        if (String.valueOf(b.value).equals(text)) {
-          return b;
-        }
-      }
-      return null;
-    }
-
-    @Override
-    @JsonValue
-    public String toString() {
-      return String.valueOf(value);
-    }
   }
 }
 
