@@ -46,7 +46,7 @@ public class CasesApiController implements CasesApi {
     return new ResponseEntity<ModelCase>(HttpStatus.NOT_IMPLEMENTED);
   }
 
-  public ResponseEntity<Void> casesByIdPost(
+  public ResponseEntity<Void> casesByIdPut(
       @ApiParam(value = "Identifier.", required = true) @PathVariable("id") String id,
       @ApiParam(value = "Case object.") @Valid @RequestBody ModelCase body) {
     mockLogger.logEndpoint("CasesApiController", "casesByIdPost");
