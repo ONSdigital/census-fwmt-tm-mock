@@ -54,7 +54,7 @@ public interface CasesApi {
   @RequestMapping(
       value = "/cases/{id}",
       consumes = {"application/json-patch+json", "application/json", "text/json", "application/_*+json"},
-      method = RequestMethod.POST)
+      method = RequestMethod.PUT)
   ResponseEntity<Void> casesByIdPost(
       @ApiParam(value = "Identifier.", required = true)
       @PathVariable("id") String id,
