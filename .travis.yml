@@ -1,0 +1,26 @@
+language: java
+jdk: oraclejdk11
+services:
+  - docker
+install: true
+script:
+  - if [[ $TRAVIS_COMMIT_MESSAGE != 'JENKINS SNAPSHOT UPDATE' ]]; then ./gradlew build --info; fi
+branches:
+  only:
+    - master
+env:
+  global:
+  - secure: adlJaU7Ov2egS+y0GhN5BMIDSFPAP6gmoXpev9AuRcyE9p5DmkdIHIKD8jPYxmI6UwWI9IySrbFUCY6r2jraeVj+PFyTwzGnjGAAG3rMFYLPyRWB2ap+I4yDP2kBIDBCcDQhNNOwqSsTg4zat4UKz/vJIosD897tQxB4AtROslMDXloxraPOeXplHl2eOBfocrDU74xvtSzqymp6FsXOa2wf6F9O2n1mqLAtXyA4JJesIk9XdWuhnE9IWjSQQVFxMopDClqj0g2jUPrdyZg7yQsGCD2DaM2VfWBxrCgE8uefhQobfvb3bOgtYiLU2LWG866KHmaI2XwI0zrVyit1egw3am/h2BB/FcUK0Z3aOTx+LOWz9JEYUw3jssdqWP+wHVZstuhBWNlibIObbY2zz5nX0J1jpNYRfqRKRPZ+3Y7nUPHJak0FX0DxsP7Zyv+O0yBu4TZoLabPnMogPmr30RAFi2ySjsa1iiuoBEiXSt00CYv3PyHFScf6ENZyaxQPYZSe69ZQ5Fgk6+xvm996Dqtgfq7igETyeHOCvk1EqeLe4QHPk062IFJV1wk8CUJF7l5XxNOy3B64TTY56jQs/s9MTyQ1l4uCM9djTLo1JQUh11qTcJEfdUXthQcJKiaJSeudW2v+mlZ5oeJrLfQRxVJRmT0Z3vRD8UalQ7brsXY=
+  - secure: Yo7EWSyQcSz4+J8eTbEnqmZSva4Vu9GpjOZMw7c1fhIg9E/vR9g/5Q2r3pPsA+MarJ+XWeB8+0sybuZTHj/irQyjVqUjjrxw2VdrN3sHlgRLy1QjtwxwnKTbteeGqS1Yv6liW2oDo6kfsTjARDN8gMkzxJkaXz7qyMLy/HoNOGk8RdDkBxwA5NUUs9LKoQ7HMYT8LL/20CZimkRFMrGucGmspXBtVUeO7hvMn7nrWbz+uB7lwKRm4n/XMbzH613QR55dOwM7YsmQbME9hfPVgMaQ9Uw6MntB3ohzvJJPPHqgIu88vZUmhlK/TnnL83plBpnVJWjSI/RRklQUm5egWN9GIS6lDmGWbjP3cAQI5J5qge8f8WjC1abVZjTB/z41khvxY6G+WgqT0ZVfdUkCvnFqNl9v6cYBwDxW3SffCIWt1g2hc25czPHJhdDSS1XwKNd782n5CqHGeCHZLRLBhksxnm83dBsL/0MvUWmRI/5IoJJ/gKhI9gNXt33JeFKDH5iNxQg4PiN4NCHdn2eYjWoMFeDd4KBvv3VbvdmLxP/6T0YtVXpCKxILjQdBr6S4nQp49xk0Zf3FES70FQOFF5V0QH3xdRrlNo4Vpw3LKtd4k2ryLxCzlVjkk8AOijFtj3i2UOgTwm8Ilw/Bv5gkR0aZ5PZiXrGPxSgbMueDj9o=
+before_cache:
+  - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
+  - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
+cache:
+  directories:
+    - "$HOME/.gradle/caches/"
+    - "$HOME/.gradle/wrapper/"
+after_success:
+  - if [[ "$TRAVIS_BRANCH" = "master" ]] && [[ "$TRAVIS_PULL_REQUEST" = "false" ]] && [[ $TRAVIS_COMMIT_MESSAGE != "JENKINS SNAPSHOT UPDATE" ]];
+    then echo "$DOCKER_PASSWORD" | docker login --username "$DOCKER_USERNAME" --password-stdin;
+    docker build -t sdcplatform/fwmt-census-mock -t sdcplatform/fwmt-census-mocks:mock-service-$TRAVIS_BUILD_NUMBER --build-arg jar=build/libs/fwmt-census-tm-mock-*.jar .;
+    docker push sdcplatform/fwmt-census-mocks;
