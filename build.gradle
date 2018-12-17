@@ -45,6 +45,8 @@ repositories {
 }
 
 dependencies {
+    compile 'uk.gov.ons.fwmt:fwmt-gateway-common:0.0.8-RELEASE'
+
     compile "org.springframework.boot:spring-boot-starter-web:${springBootVersion}"
     compile "org.springframework.boot:spring-boot-starter-web-services:${springBootVersion}"
     compile "org.springframework.boot:spring-boot-starter-actuator:${springBootVersion}"
@@ -61,9 +63,8 @@ dependencies {
 
     compile 'org.apache.commons:commons-lang3:3.8.1'
 
-    compile 'uk.gov.ons.fwmt:fwmt-gateway-common:0.0.8-RELEASE'
-
     compile 'com.fasterxml.jackson.core:jackson-databind:2.9.7'
+    
     compile 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.9.7'
 
     compile 'com.github.joschi.jackson:jackson-datatype-threetenbp:2.8.4'
