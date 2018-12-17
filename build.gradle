@@ -45,7 +45,7 @@ repositories {
 }
 
 dependencies {
-    compile 'uk.gov.ons.fwmt:fwmt-gateway-common:0.0.8-RELEASE'
+ compile 'uk.gov.ons.fwmt:fwmt-gateway-common:0.0.8-RELEASE'
 
     compile "org.springframework.boot:spring-boot-starter-web:${springBootVersion}"
     compile "org.springframework.boot:spring-boot-starter-web-services:${springBootVersion}"
