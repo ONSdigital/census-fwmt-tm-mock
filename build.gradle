@@ -45,8 +45,6 @@ repositories {
 }
 
 dependencies {
-	compile 'uk.gov.ons.fwmt:fwmt-gateway-common:0.0.8-RELEASE'
-
     compile "org.springframework.boot:spring-boot-starter-web:${springBootVersion}"
     compile "org.springframework.boot:spring-boot-starter-web-services:${springBootVersion}"
     compile "org.springframework.boot:spring-boot-starter-actuator:${springBootVersion}"
@@ -57,28 +55,32 @@ dependencies {
         exclude module: 'log4j'
     }
 
-    compile 'com.rabbitmq:amqp-client:5.5.1'
+    testCompile("org.springframework.boot:spring-boot-starter-test:${springBootVersion}") {
+        exclude module: 'android-json'
+    }
 
     compile 'org.apache.commons:commons-lang3:3.8.1'
 
-    compile 'io.springfox:springfox-swagger2:2.9.2'
-    compile 'io.springfox:springfox-swagger-ui:2.9.2'
+    compile 'uk.gov.ons.fwmt:fwmt-gateway-common:0.0.8-RELEASE'
 
-    compile 'org.jsoup:jsoup:1.11.3'
-
-    compile 'javax.validation:validation-api:2.0.1.Final'
-
-    compile 'org.yaml:snakeyaml:1.23'
-    compile 'org.json:json:20180813'
     compile 'com.fasterxml.jackson.core:jackson-databind:2.9.7'
     compile 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.9.7'
+
     compile 'com.github.joschi.jackson:jackson-datatype-threetenbp:2.8.4'
+
+    compile 'org.json:json:20180813'
 
     compile 'org.projectlombok:lombok:1.18.4'
     annotationProcessor 'org.projectlombok:lombok:1.18.4'
 
-    testCompile("org.springframework.boot:spring-boot-starter-test:${springBootVersion}") {
-        exclude module: 'android-json'
-    }
+    compile 'com.rabbitmq:amqp-client:5.5.1'
+
+    compile 'io.springfox:springfox-swagger2:2.9.2'
+    compile 'io.springfox:springfox-swagger-ui:2.9.2'
+
+    compile 'javax.validation:validation-api:2.0.1.Final'
+
+    compile 'org.yaml:snakeyaml:1.23'
+
     testCompile 'junit:junit:4.12'
 }
