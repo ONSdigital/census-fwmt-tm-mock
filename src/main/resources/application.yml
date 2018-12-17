@@ -1,11 +1,22 @@
 server:
   port: 9099
+  servlet:
+    context-path: /
 
 spring:
   application:
     name: fwmt-census-tm-mocks
+  security:
+    user:
+      name: "user"
+      password: "password"
+  jackson:
+    date-format: uk.gov.ons.fwmt.census.tm.mock.RFC3339DateFormat
+    serialization:
+      WRITE_DATES_AS_TIMESTAMPS: false
 
 management.endpoint.health.show-details: always
+springfox.documentation.swagger.v2.path: "/api-docs"
 
 logging:
   level:
@@ -15,10 +26,6 @@ logging:
   pattern:
     console: "%d{yyyy-MMM-dd HH:mm:ss.SSS} %-5level [%thread] [%X{CID}] %logger{1}::%M - %msg%n"
     file: "%d{yyyy-MMM-dd HH:mm:ss.SSS} %-5level [%thread] [%X{CID}] %logger{1}::%M - %msg%n"
-
-security.user:
-  name: "user"
-  password: "password"
 
 totalmobile:
   username: ""

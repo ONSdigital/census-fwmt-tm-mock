@@ -1,10 +1,10 @@
 ---
 applications:
-- name: 'Mock-TM'
+- name: 'Census-TM-Mock'
   instances: 1
   timeout: 180
   memory: 1024M
-  path: 'build/libs/fwmt-service-mocks-1.0.0.jar'
+  path: 'build/libs/fwmt-census-tm-mock-3.0.0-SNAPSHOT.jar'
   services:
   - 'fwmt-rabbit'
   env:

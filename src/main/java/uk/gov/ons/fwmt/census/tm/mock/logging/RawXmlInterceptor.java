@@ -6,9 +6,6 @@ import org.springframework.ws.context.MessageContext;
 import org.springframework.ws.soap.SoapHeaderElement;
 import org.springframework.ws.soap.server.SoapEndpointInterceptor;
 
-import uk.gov.ons.fwmt.census.tm.mock.logging.MockLogger;
-import uk.gov.ons.fwmt.census.tm.mock.logging.MockMessage;
-
 import java.io.ByteArrayOutputStream;
 
 @Component

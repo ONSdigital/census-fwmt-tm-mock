@@ -33,8 +33,12 @@ public class MockLogger {
   public void logRawRequest(String rawHeaders, String rawHtml) {
     setupCurrentMessage();
     currentMessage.get().requestTimestamp = LocalDateTime.now().toString();
-    currentMessage.get().requestRawHeaders = rawHeaders;
-    currentMessage.get().requestRawHtml = HtmlUtils.htmlEscape(rawHtml);
+    if (rawHeaders != null) {
+      currentMessage.get().requestRawHeaders = rawHeaders;
+    }
+    if (rawHtml != null) {
+      currentMessage.get().requestRawHtml = HtmlUtils.htmlEscape(rawHtml);
+    }
   }
 
   public <R> void logParsedRequest(R request) {
@@ -45,9 +49,13 @@ public class MockLogger {
   public void logRawResponse(String rawHeaders, String rawHtml) {
     setupCurrentMessage();
     currentMessage.get().responseTimestamp = LocalDateTime.now().toString();
-    currentMessage.get().responseRawHeaders = rawHeaders;
-    currentMessage.get().responseRawHtml = HtmlUtils.htmlEscape(rawHtml);
     currentMessage.get().isFault = false;
+    if (rawHeaders != null) {
+      currentMessage.get().responseRawHeaders = rawHeaders;
+    }
+    if (rawHtml != null) {
+      currentMessage.get().responseRawHtml = HtmlUtils.htmlEscape(rawHtml);
+    }
   }
 
   public <R> void logParsedResponse(R response) {
@@ -58,9 +66,13 @@ public class MockLogger {
   public void logRawFault(String rawHeaders, String rawHtml) {
     setupCurrentMessage();
     currentMessage.get().responseTimestamp = LocalDateTime.now().toString();
-    currentMessage.get().responseRawHeaders = rawHeaders;
-    currentMessage.get().responseRawHtml = HtmlUtils.htmlEscape(rawHtml);
     currentMessage.get().isFault = true;
+    if (rawHeaders != null) {
+      currentMessage.get().responseRawHeaders = rawHeaders;
+    }
+    if (rawHtml != null) {
+      currentMessage.get().responseRawHtml = HtmlUtils.htmlEscape(rawHtml);
+    }
   }
 
   public void finalise() {

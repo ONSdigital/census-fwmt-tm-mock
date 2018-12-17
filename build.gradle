@@ -1,22 +1,33 @@
 buildscript {
+    ext {
+        springCloudVersion = '2.0.4.RELEASE'
+        springBootVersion = '2.1.1.RELEASE'
+    }
     repositories {
         mavenCentral()
     }
     dependencies {
-        classpath("org.springframework.boot:spring-boot-gradle-plugin:2.1.0.RELEASE")
+        classpath 'org.springframework.boot:spring-boot-gradle-plugin:2.1.1.RELEASE'
     }
 }
 
-apply plugin: 'java'
-apply plugin: 'idea'
-apply plugin: 'eclipse'
-apply plugin: 'application'
-apply plugin: 'org.springframework.boot'
-apply plugin: 'io.spring.dependency-management'
+plugins {
+    id 'java'
+    id 'idea'
+    id 'eclipse'
+    id 'application'
+    id 'org.springframework.boot' version '2.1.0.RELEASE'
+    id 'io.spring.dependency-management' version '1.0.6.RELEASE'
+}
 
-description = "fwmt-census-tm-mocks"
+mainClassName = 'uk.gov.ons.fwmt.census.tm.mock.Application'
 
+description = 'fwmt-census-tm-mocks'
+group = 'uk.gov.ons.fwmt'
 version = '3.0.0-SNAPSHOT'
+
+sourceCompatibility = 11
+targetCompatibility = 11
 
 jar {
     group = 'uk.gov.ons.fwmt'
@@ -24,103 +35,53 @@ jar {
     version = version
 }
 
-mainClassName = 'uk.gov.ons.fwmt.census.tm.mocks.Application'
-
-sourceCompatibility = 11
-targetCompatibility = 11
-
 repositories {
-	mavenLocal()
+    mavenLocal()
     mavenCentral()
-    maven { url "http://artifactory-sdc.onsdigital.uk/artifactory/libs-snapshot" }
-    maven { url "http://artifactory-sdc.onsdigital.uk/artifactory/libs-release" }
-    maven { url "https://oss.sonatype.org/content/repositories/libs-snapshot" }
-    maven { url "http://repo.maven.apache.org/maven2" }
-}
-
-configurations {
-    jaxb
-}
-
-task genJaxb {
-    ext.sourcesDir = "${buildDir}/generated-sources/jaxb"
-    ext.classesDir = "${buildDir}/classes/jaxb"
-    ext.schema = "${projectDir}/src/main/resources/wsdl"
-
-    outputs.dir classesDir
-
-    doLast() {
-        project.ant {
-            taskdef name: "xjc", classname: "com.sun.tools.xjc.XJCTask",
-                    classpath: configurations.jaxb.asPath
-            mkdir(dir: sourcesDir)
-            mkdir(dir: classesDir)
-
-            xjc(destdir: sourcesDir) {
-                arg(value: "-wsdl")
-                produces(dir: sourcesDir, includes: "**/*.java")
-                schema(dir: schema, includes: "**/*.wsdl")
-            }
-
-            javac(destdir: classesDir, source: 1.8, target: 1.8, debug: true,
-                    debugLevel: "lines,vars,source",
-                    classpath: configurations.jaxb.asPath) {
-                src(path: sourcesDir)
-                include(name: "**/*.java")
-                include(name: "*.java")
-            }
-
-            copy(todir: classesDir) {
-                fileset(dir: sourcesDir, erroronmissingdir: false) {
-                    exclude(name: "**/*.java")
-                }
-            }
-        }
-    }
+    maven { url 'http://artifactory-sdc.onsdigital.uk/artifactory/libs-release' }
+    maven { url 'http://artifactory-sdc.onsdigital.uk/artifactory/libs-snapshot' }
+    maven { url 'https://oss.sonatype.org/content/repositories/libs-snapshot' }
+    maven { url 'http://repo.maven.apache.org/maven2' }
 }
 
 dependencies {
-	compile("uk.gov.ons.fwmt:fwmt-gateway-common:0.0.8-RELEASE")
+    compile 'uk.gov.ons.fwmt:fwmt-gateway-common:0.0.8-RELEASE'
 
-	jaxb("javax.xml.bind:jaxb-api:2.3.0")
-	jaxb("com.sun.xml.bind:jaxb-core:2.3.0.1")
-	jaxb("com.sun.xml.bind:jaxb-impl:2.3.1")
-	jaxb("com.sun.xml.bind:jaxb-xjc:2.3.1")
-	jaxb("javax.activation:activation:1.1.1")
-
-	compile("javax.xml.bind:jaxb-api:2.3.0")
-    compile("com.sun.xml.bind:jaxb-core:2.3.0.1")
-    compile("com.sun.xml.bind:jaxb-impl:2.3.1")
-    compile("com.sun.xml.bind:jaxb-xjc:2.3.1")
-    compile("javax.activation:activation:1.1.1")
-
-    compile(files((String) genJaxb.classesDir).builtBy(genJaxb))
-
-    compile("org.springframework.boot:spring-boot-starter-web")
-    compile("org.springframework.boot:spring-boot-starter-web-services")
-    compile("org.springframework.cloud:spring-cloud-spring-service-connector") {
-        exclude(module: "log4j")
+    compile "org.springframework.boot:spring-boot-starter-web:${springBootVersion}"
+    compile "org.springframework.boot:spring-boot-starter-web-services:${springBootVersion}"
+    compile "org.springframework.boot:spring-boot-starter-actuator:${springBootVersion}"
+    compile("org.springframework.cloud:spring-cloud-spring-service-connector:${springCloudVersion}") {
+        exclude module: 'log4j'
     }
-    compile("org.springframework.cloud:spring-cloud-cloudfoundry-connector") {
-        exclude(module: "log4j")
+    compile("org.springframework.cloud:spring-cloud-cloudfoundry-connector:${springCloudVersion}") {
+        exclude module: 'log4j'
     }
 
-    compile("com.fasterxml.jackson.core:jackson-databind")
-    compile("com.fasterxml.jackson.datatype:jackson-datatype-jsr310")
-    compile("com.rabbitmq:amqp-client")
-
-    compile("io.springfox:springfox-swagger2:2.9.2")
-    compile("io.springfox:springfox-swagger-ui:2.9.2")
-
-    compile("org.apache.commons:commons-lang3")
-    compile("org.jsoup:jsoup:1.11.3")
-    compile("org.json:json:20180813")
-    compile("org.projectlombok:lombok")
-    annotationProcessor("org.projectlombok:lombok")
-    compile("org.yaml:snakeyaml")
-
-    testCompile("org.springframework.boot:spring-boot-starter-test") {
-        exclude(module: "android-json")
+    testCompile("org.springframework.boot:spring-boot-starter-test:${springBootVersion}") {
+        exclude module: 'android-json'
     }
-    testCompile("junit:junit")
+
+    compile 'org.apache.commons:commons-lang3:3.8.1'
+
+    compile 'com.fasterxml.jackson.core:jackson-databind:2.9.7'
+    
+    compile 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.9.7'
+
+    compile 'com.github.joschi.jackson:jackson-datatype-threetenbp:2.8.4'
+
+    compile 'org.json:json:20180813'
+
+    compile 'org.projectlombok:lombok:1.18.4'
+    annotationProcessor 'org.projectlombok:lombok:1.18.4'
+
+    compile 'com.rabbitmq:amqp-client:5.5.1'
+
+    compile 'io.springfox:springfox-swagger2:2.9.2'
+    compile 'io.springfox:springfox-swagger-ui:2.9.2'
+
+    compile 'javax.validation:validation-api:2.0.1.Final'
+
+    compile 'org.yaml:snakeyaml:1.23'
+
+    testCompile 'junit:junit:4.12'
 }

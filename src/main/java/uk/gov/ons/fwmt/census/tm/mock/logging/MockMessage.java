@@ -3,8 +3,6 @@ package uk.gov.ons.fwmt.census.tm.mock.logging;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
-
 @Data
 @NoArgsConstructor
 public class MockMessage {
