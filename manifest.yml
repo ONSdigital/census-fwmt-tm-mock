@@ -6,7 +6,7 @@ applications:
   memory: 1024M
   path: 'build/libs/fwmt-census-tm-mock-3.0.0-SNAPSHOT.jar'
   services:
-  - 'fwmt-rabbit'
+  - 'fwmt-rabbitmq'
   env:
     logging_level_uk.gov.ons.fwmt: DEBUG
     logging_level_org.springframework.web: TRACE
