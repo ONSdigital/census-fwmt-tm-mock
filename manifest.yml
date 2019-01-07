@@ -5,8 +5,10 @@ applications:
   timeout: 180
   memory: 1024M
   path: 'build/libs/fwmt-census-tm-mock-3.0.0-SNAPSHOT.jar'
+  buildpack: https://github.com/cloudfoundry/java-buildpack.git
   services:
   - 'fwmt-rabbitmq'
   env:
     logging_level_uk.gov.ons.fwmt: DEBUG
     logging_level_org.springframework.web: TRACE
+	JBP_CONFIG_OPEN_JDK_JRE: '{ jre: { version: 11.+ } }'c
