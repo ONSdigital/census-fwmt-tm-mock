@@ -19,6 +19,7 @@ plugins {
     id 'application'
     id 'org.springframework.boot' version '2.1.0.RELEASE'
     id 'io.spring.dependency-management' version '1.0.6.RELEASE'
+    id 'com.jfrog.artifactory' version '4.8.1'
 }
 
 mainClassName = 'uk.gov.ons.fwmt.census.tm.mock.Application'
