@@ -15,6 +15,7 @@ plugins {
     id 'java'
     id 'idea'
     id 'eclipse'
+    id 'maven-publish'
     id 'application'
     id 'org.springframework.boot' version '2.1.0.RELEASE'
     id 'io.spring.dependency-management' version '1.0.6.RELEASE'
@@ -43,6 +44,30 @@ repositories {
     maven { url 'https://oss.sonatype.org/content/repositories/libs-snapshot' }
     maven { url 'http://repo.maven.apache.org/maven2' }
 }
+
+artifactory {
+    contextUrl = System.getenv('ARTIFACTORY_URL')
+    publish {
+        repository {
+            repoKey = 'libs-snapshot-local'
+            username = System.getenv('ARTIFACTORY_USERNAME')
+            password = System.getenv('ARTIFACTORY_PASSWORD')
+        }
+    }
+}
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            groupId = group
+            artifactId = 'fwmt-census-tm-mock'
+            version = version
+
+            from components.java
+        }
+    }
+}
+
 
 dependencies {
  compile 'uk.gov.ons.fwmt:fwmt-gateway-common:0.0.8-RELEASE'
