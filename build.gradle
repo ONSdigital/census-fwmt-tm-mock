@@ -5,9 +5,12 @@ buildscript {
     }
     repositories {
         mavenCentral()
+        jcenter()
+        
     }
     dependencies {
         classpath 'org.springframework.boot:spring-boot-gradle-plugin:2.1.0.RELEASE'
+        classpath 'org.jfrog.buildinfo:build-info-extractor-gradle:4.7.2'
     }
 }
 
@@ -15,6 +18,7 @@ plugins {
     id 'java'
     id 'idea'
     id 'eclipse'
+    id 'maven'
     id 'maven-publish'
     id 'application'
     id 'org.springframework.boot' version '2.1.0.RELEASE'
@@ -69,6 +73,9 @@ publishing {
     }
 }
 
+artifactoryPublish {
+    publications('maven')
+}
 
 dependencies {
  compile 'uk.gov.ons.fwmt:fwmt-gateway-common:0.0.8-RELEASE'
