@@ -1,35 +1,38 @@
 language: java
 jdk: oraclejdk11
 services:
-  - docker
+- docker
 install: true
 script:
-  - if [[ $TRAVIS_COMMIT_MESSAGE != 'JENKINS SNAPSHOT UPDATE' ]]; then ./gradlew build --info; fi
+- if [[ $TRAVIS_COMMIT_MESSAGE != 'JENKINS SNAPSHOT UPDATE' ]]; then ./gradlew build
+  --info; fi
 branches:
   only:
-    - master
+  - master
 env:
   global:
   - secure: adlJaU7Ov2egS+y0GhN5BMIDSFPAP6gmoXpev9AuRcyE9p5DmkdIHIKD8jPYxmI6UwWI9IySrbFUCY6r2jraeVj+PFyTwzGnjGAAG3rMFYLPyRWB2ap+I4yDP2kBIDBCcDQhNNOwqSsTg4zat4UKz/vJIosD897tQxB4AtROslMDXloxraPOeXplHl2eOBfocrDU74xvtSzqymp6FsXOa2wf6F9O2n1mqLAtXyA4JJesIk9XdWuhnE9IWjSQQVFxMopDClqj0g2jUPrdyZg7yQsGCD2DaM2VfWBxrCgE8uefhQobfvb3bOgtYiLU2LWG866KHmaI2XwI0zrVyit1egw3am/h2BB/FcUK0Z3aOTx+LOWz9JEYUw3jssdqWP+wHVZstuhBWNlibIObbY2zz5nX0J1jpNYRfqRKRPZ+3Y7nUPHJak0FX0DxsP7Zyv+O0yBu4TZoLabPnMogPmr30RAFi2ySjsa1iiuoBEiXSt00CYv3PyHFScf6ENZyaxQPYZSe69ZQ5Fgk6+xvm996Dqtgfq7igETyeHOCvk1EqeLe4QHPk062IFJV1wk8CUJF7l5XxNOy3B64TTY56jQs/s9MTyQ1l4uCM9djTLo1JQUh11qTcJEfdUXthQcJKiaJSeudW2v+mlZ5oeJrLfQRxVJRmT0Z3vRD8UalQ7brsXY=
   - secure: Yo7EWSyQcSz4+J8eTbEnqmZSva4Vu9GpjOZMw7c1fhIg9E/vR9g/5Q2r3pPsA+MarJ+XWeB8+0sybuZTHj/irQyjVqUjjrxw2VdrN3sHlgRLy1QjtwxwnKTbteeGqS1Yv6liW2oDo6kfsTjARDN8gMkzxJkaXz7qyMLy/HoNOGk8RdDkBxwA5NUUs9LKoQ7HMYT8LL/20CZimkRFMrGucGmspXBtVUeO7hvMn7nrWbz+uB7lwKRm4n/XMbzH613QR55dOwM7YsmQbME9hfPVgMaQ9Uw6MntB3ohzvJJPPHqgIu88vZUmhlK/TnnL83plBpnVJWjSI/RRklQUm5egWN9GIS6lDmGWbjP3cAQI5J5qge8f8WjC1abVZjTB/z41khvxY6G+WgqT0ZVfdUkCvnFqNl9v6cYBwDxW3SffCIWt1g2hc25czPHJhdDSS1XwKNd782n5CqHGeCHZLRLBhksxnm83dBsL/0MvUWmRI/5IoJJ/gKhI9gNXt33JeFKDH5iNxQg4PiN4NCHdn2eYjWoMFeDd4KBvv3VbvdmLxP/6T0YtVXpCKxILjQdBr6S4nQp49xk0Zf3FES70FQOFF5V0QH3xdRrlNo4Vpw3LKtd4k2ryLxCzlVjkk8AOijFtj3i2UOgTwm8Ilw/Bv5gkR0aZ5PZiXrGPxSgbMueDj9o=
+  - secure: ILIDEcmQUs6rSuU67fC5nqg0XRMHkjhQ8FMvuzz1nS8juQmizds7Hbl0huC9jw4bYXnt3WWqP8cBFMaJdE6j9Cv5FrM/YzQpvxNYgvHVAJBLdAroa40xdg3mumsSW8QQ/9xZo2YAxfSz+/roehUaajJcE0wdvN692qp0xrBHuNNPkcfBw8neYNWG3n4FD2QxwgjptuMHNese7/z1X97h3F3dPOC/pl1r7R3wQUZFPbOoYSPgCLMIRrP02a6GyD5J7wt+buxmpf46v/XtIwp/TMZyHekGPMLUQXoqkKcingGNjFkuXJRnU0cg0qpCUL7Pa7EljoFSBcbE6w0XKtyKHzAnt2K5PQSse3J6BY1iwkYKE0Rc+6h00pdfWYpPWCi+648DXM35diVmClo70Uye+V+3IainNDdGcTFpRcBdavfCBnR1ukHDVbqXeyElfCG+hkiKIBdQBlbWVk4HjYhz7eUgoIJM3f8O3EZOUQTKM6HnPQQDNbFhjNEoZblieP4+n8RCvDCFurukKws13komy6b9VhDuqZEvJm1HECsI1Pg+F1irlj7ip0bYyovwkJ/RtKfxX06qlZem7GHYkxu97SD2WKOwWCFSg1bpX995dgk1Q6TTm2vpWNEx1NXyMHkqZBjjsBqkg+QM8qFCfpQbDaExRiTYP9ubYBcYXImAl5U=
+  - secure: c1KIhKD9oFb1RzXE3585vyrr88ZlSpKAMPYAPF3w305J81NSN/KCt5nxgJhXWSr/edSlUxbP92dL/RDlVCdWaxCNnf5Djkv4PyGqXPvrzi8DsRRJ/tugYMXngslfi+Ud9CeyUa4dXV/YZE0IkZIV6CDOmMrxyjblAmSYFP8CAE4XwhdARy2vXArbTPWw+kVmSPXebUuB+t+uCjCAPpb8UhDb/GqoUXzignLw1u7+PmIF0dsa0667EgIjOVcV+ZpV3EDJt+yZ5awUJMP0n8AA7FgPL6gBF/1zmnrmuTljsdtABEsqG3izblgyoVVM/MWtF23pLgumgV7dQkPmsy/L4PwmKrR38JOcl0p0REfOSz/gWvRvLuqxjSYLOjiL/ccRPIvFOReRQFH+FMS6knhmtAUuIRmd7o8YT8LY4taPeZHulvRSyPjQL0xsR9P1VQhlui5m8P30d7km/mKyAOETvWEbHwSp3DuY2oI8WUHIs38AL+MSlHVkXYBjqvyHGd/dZ365njbq/8wd7JmFbZASQ58FUoEywX6zKcaIYNyZVeTGbkjxG4UWPwaYJEZmuFcgqZDsO96KUURvVDdZPCeWinlfOuK33u8eyJqCFH05gx/9DoNB1nZv9JSRKR7iBvUjSli7TVtlz/v0JxBuVws5wRo2zvMYfj63k7OrBgxv2ng=
+  - secure: eRIATXvoMnBNpEG5pkkkZesBV+vp5NnIWaidQSN1FuDUVPnA1gztywHCYPEpE380Th3Cr/5btCf1Id4Gu/l9ksK/H7fMEFu/6uIlBAeFm5qsHC2VD1BfcoICFnYTGPMrOuTWemoH3tf2p6pdEDWOQcfYFqCh2XZe68BaIJLc0pTrwWhDR/EV/tsEOqVbBKVDOyn45G3Ojv6mbj1vPCUqwgaRRMg/Rd+DwJPG7ZWuOtcYIC17O3IfC36P5yRfOVX3nnr3uTw8ewzKGKkhwC5RPXHPWJl8qZnic7mQDafHOC/KJF8I10ibw33tn8H1MbgQmwk8hGZM+5Onb0XrbxeF2Anz7ADfAf6d2tFx+He04S0GxNfM+sJKw65qL5J3o8EdFOe3lPQJXb5NwtabAGZ/FlZ2PsVGhNncWtcjFspCg9zRnVGz5DkLQTElUntGIsKrwj/UC4n9jOx9ybseHz6eL/CpAUfhaNXonfsm7vUVWREq30DFo6eKdkcXI3mGp/jkQiyuwH8rnN7598cTPHwtFlNqiTMTTc3zp0AWeu4J7JQV16/naeSwyBtg7oSkIkS6u7Y9LJhZn111hlx22Bnf9wgoGDHE5PH1mOiMXQys/cWsr3Ai8mfz2mgRS9ahf2Z38pqBC9ewoRD5suxBwDC/BE216wYiNadpnWFg1huPQT8=
 before_cache:
-  - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
-  - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
+- rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
+- rm -fr $HOME/.gradle/caches/*/plugin-resolution/
 cache:
   directories:
-    - "$HOME/.gradle/caches/"
-    - "$HOME/.gradle/wrapper/"
+  - "$HOME/.gradle/caches/"
+  - "$HOME/.gradle/wrapper/"
 after_success:
-  - |
-    set -e
-    if [[ "$TRAVIS_BRANCH" = "master" ]] && [[ "$TRAVIS_PULL_REQUEST" = "false" ]] && [[ $TRAVIS_COMMIT_MESSAGE != "JENKINS SNAPSHOT UPDATE" ]];
-      then echo "$DOCKER_PASSWORD" | docker login --username "$DOCKER_USERNAME" --password-stdin;
-      docker build -t sdcplatform/fwmt-census-mocks -t sdcplatform/fwmt-census-mocks:mock-service-$TRAVIS_BUILD_NUMBER --build-arg jar=build/libs/fwmt-census-tm-mock-*.jar .;
-      docker push sdcplatform/fwmt-census-mocks;
-    fi
-  - |
-    set -e
-    if [[ "$TRAVIS_BRANCH" = "master" ]] && [[ "$TRAVIS_PULL_REQUEST" = "false" ]] && [[ $TRAVIS_COMMIT_MESSAGE != "JENKINS SNAPSHOT UPDATE" ]]; then
-      ./gradlew artifactPublish
-    fi
-    
+- |
+  set -e
+  if [[ "$TRAVIS_BRANCH" = "master" ]] && [[ "$TRAVIS_PULL_REQUEST" = "false" ]] && [[ $TRAVIS_COMMIT_MESSAGE != "JENKINS SNAPSHOT UPDATE" ]];
+    then echo "$DOCKER_PASSWORD" | docker login --username "$DOCKER_USERNAME" --password-stdin;
+    docker build -t sdcplatform/fwmt-census-mocks -t sdcplatform/fwmt-census-mocks:mock-service-$TRAVIS_BUILD_NUMBER --build-arg jar=build/libs/fwmt-census-tm-mock-*.jar .;
+    docker push sdcplatform/fwmt-census-mocks;
+  fi
+- |
+  set -e
+  if [[ "$TRAVIS_BRANCH" = "master" ]] && [[ "$TRAVIS_PULL_REQUEST" = "false" ]] && [[ $TRAVIS_COMMIT_MESSAGE != "JENKINS SNAPSHOT UPDATE" ]]; then
+    ./gradlew artifactPublish
+  fi
