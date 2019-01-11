@@ -13,7 +13,7 @@ public class JacksonConfiguration {
 
   @Bean
   @ConditionalOnMissingBean(ThreeTenModule.class)
-  ThreeTenModule threeTenModule() {
+  public ThreeTenModule threeTenModule() {
     ThreeTenModule module = new ThreeTenModule();
     module.addDeserializer(Instant.class, CustomInstantDeserializer.INSTANT);
     module.addDeserializer(OffsetDateTime.class, CustomInstantDeserializer.OFFSET_DATE_TIME);
