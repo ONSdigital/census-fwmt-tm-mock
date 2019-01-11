@@ -18,7 +18,7 @@ public class LatLong {
   private Double lat = null;
 
   @JsonProperty("long")
-  private Double _long = null;
+  private Double lon = null;
 
   public LatLong lat(Double lat) {
     this.lat = lat;
@@ -41,8 +41,8 @@ public class LatLong {
     this.lat = lat;
   }
 
-  public LatLong _long(Double _long) {
-    this._long = _long;
+  public LatLong lon(Double lon) {
+    this.lon = lon;
     return this;
   }
 
@@ -55,11 +55,11 @@ public class LatLong {
   @NotNull
 
   public Double getLong() {
-    return _long;
+    return lon;
   }
 
-  public void setLong(Double _long) {
-    this._long = _long;
+  public void setLong(Double lon) {
+    this.lon = lon;
   }
 
   @Override
@@ -72,12 +72,12 @@ public class LatLong {
     }
     LatLong latLong = (LatLong) o;
     return Objects.equals(this.lat, latLong.lat) &&
-        Objects.equals(this._long, latLong._long);
+        Objects.equals(this.lon, latLong.lon);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(lat, _long);
+    return Objects.hash(lat, lon);
   }
 
   @Override
@@ -86,7 +86,7 @@ public class LatLong {
     sb.append("class LatLong {\n");
 
     sb.append("    lat: ").append(toIndentedString(lat)).append("\n");
-    sb.append("    _long: ").append(toIndentedString(_long)).append("\n");
+    sb.append("    _long: ").append(toIndentedString(lon)).append("\n");
     sb.append("}");
     return sb.toString();
   }
