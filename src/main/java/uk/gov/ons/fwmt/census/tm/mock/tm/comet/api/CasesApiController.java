@@ -1,6 +1,5 @@
 package uk.gov.ons.fwmt.census.tm.mock.tm.comet.api;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import io.swagger.annotations.ApiParam;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,14 +27,11 @@ public class CasesApiController implements CasesApi {
 
   private MockLogger mockLogger;
 
-  private final ObjectMapper objectMapper;
-
   private final HttpServletRequest request;
 
   @Autowired
-  public CasesApiController(MockLogger mockLogger, ObjectMapper objectMapper, HttpServletRequest request) {
+  public CasesApiController(MockLogger mockLogger, HttpServletRequest request) {
     this.mockLogger = mockLogger;
-    this.objectMapper = objectMapper;
     this.request = request;
   }
 
