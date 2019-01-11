@@ -17,7 +17,7 @@ import java.util.Objects;
  * ModelCase
  */
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2018-12-07T11:49:58.389925Z[Europe/London]")
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2018-12-13T11:28:39.081413Z[Europe/London]")
 
 public class ModelCase {
   @JsonProperty("id")
@@ -28,28 +28,54 @@ public class ModelCase {
 
   @JsonProperty("caseType")
   private String caseType = null;
+
+  @JsonProperty("outcomes")
+  @Valid
+  private List<Outcome> outcomes = null;
+
   @JsonProperty("state")
   private StateEnum state = null;
+
   @JsonProperty("category")
   private String category = null;
+
   @JsonProperty("estabType")
   private String estabType = null;
+
   @JsonProperty("coordCode")
   private String coordCode = null;
+  @JsonProperty("visitCount")
+  private Integer visitCount = null;
+
+  @JsonProperty("warnings")
+  @Valid
+  private List<Warning> warnings = null;
+
+  @JsonProperty("notes")
+  @Valid
+  private List<Note> notes = null;
+
   @JsonProperty("contact")
   private Contact contact = null;
+
   @JsonProperty("address")
   private Address address = null;
+
   @JsonProperty("location")
   private LatLong location = null;
+
   @JsonProperty("htc")
   private Integer htc = null;
+
   @JsonProperty("priority")
   private Integer priority = null;
+
   @JsonProperty("description")
   private String description = null;
+
   @JsonProperty("specialInstructions")
   private String specialInstructions = null;
+
   @JsonProperty("holdUntil")
   private OffsetDateTime holdUntil = null;
   @JsonProperty("_links")
@@ -62,12 +88,12 @@ public class ModelCase {
   }
 
   /**
-   * Case Identifier.
-   *
+   * Get id
    * @return id
    **/
-  @ApiModelProperty(required = true, value = "Case Identifier.")
+  @ApiModelProperty(required = true, value = "")
   @NotNull
+
 
   public String getId() {
     return id;
@@ -83,18 +109,14 @@ public class ModelCase {
   }
 
   /**
-   * Case Reference
-   *
+   * Get reference
    * @return reference
    **/
-  @ApiModelProperty(value = "Case Reference")
+  @ApiModelProperty(value = "")
+
 
   public String getReference() {
     return reference;
-  }
-
-  public void setReference(String reference) {
-    this.reference = reference;
   }
 
   public ModelCase caseType(String caseType) {
@@ -102,13 +124,22 @@ public class ModelCase {
     return this;
   }
 
+  public void setReference(String reference) {
+    this.reference = reference;
+  }
+
+  public ModelCase state(StateEnum state) {
+    this.state = state;
+    return this;
+  }
+
   /**
-   * Case Type
-   *
+   * Get caseType
    * @return caseType
    **/
-  @ApiModelProperty(required = true, value = "Case Type")
+  @ApiModelProperty(required = true, value = "")
   @NotNull
+
 
   public String getCaseType() {
     return caseType;
@@ -118,18 +149,18 @@ public class ModelCase {
     this.caseType = caseType;
   }
 
-  public ModelCase state(StateEnum state) {
-    this.state = state;
+  public ModelCase category(String category) {
+    this.category = category;
     return this;
   }
 
   /**
-   * Case State
-   *
+   * Get state
    * @return state
    **/
-  @ApiModelProperty(required = true, value = "Case State")
+  @ApiModelProperty(required = true, value = "")
   @NotNull
+
 
   public StateEnum getState() {
     return state;
@@ -139,17 +170,17 @@ public class ModelCase {
     this.state = state;
   }
 
-  public ModelCase category(String category) {
-    this.category = category;
+  public ModelCase estabType(String estabType) {
+    this.estabType = estabType;
     return this;
   }
 
   /**
-   * Category
-   *
+   * Get category
    * @return category
    **/
-  @ApiModelProperty(value = "Category")
+  @ApiModelProperty(value = "")
+
 
   public String getCategory() {
     return category;
@@ -159,17 +190,17 @@ public class ModelCase {
     this.category = category;
   }
 
-  public ModelCase estabType(String estabType) {
-    this.estabType = estabType;
+  public ModelCase coordCode(String coordCode) {
+    this.coordCode = coordCode;
     return this;
   }
 
   /**
-   * Gets or sets the type of the estab.
-   *
+   * Get estabType
    * @return estabType
    **/
-  @ApiModelProperty(value = "Gets or sets the type of the estab.")
+  @ApiModelProperty(value = "")
+
 
   public String getEstabType() {
     return estabType;
@@ -179,18 +210,13 @@ public class ModelCase {
     this.estabType = estabType;
   }
 
-  public ModelCase coordCode(String coordCode) {
-    this.coordCode = coordCode;
-    return this;
-  }
-
   /**
-   * Coordinate code
-   *
+   * Get coordCode
    * @return coordCode
    **/
-  @ApiModelProperty(required = true, value = "Coordinate code")
+  @ApiModelProperty(required = true, value = "")
   @NotNull
+
 
   public String getCoordCode() {
     return coordCode;
@@ -200,6 +226,104 @@ public class ModelCase {
     this.coordCode = coordCode;
   }
 
+  /**
+   * Get htc
+   *
+   * @return htc
+   **/
+  @ApiModelProperty(value = "")
+
+  public Integer getHtc() {
+    return htc;
+  }
+
+  public ModelCase outcomes(List<Outcome> outcomes) {
+    this.outcomes = outcomes;
+    return this;
+  }
+
+  public ModelCase addOutcomesItem(Outcome outcomesItem) {
+    if (this.outcomes == null) {
+      this.outcomes = new ArrayList<Outcome>();
+    }
+    this.outcomes.add(outcomesItem);
+    return this;
+  }
+
+  /**
+   * Get outcomes
+   * @return outcomes
+   **/
+  @ApiModelProperty(value = "")
+
+  @Valid
+
+  public List<Outcome> getOutcomes() {
+    return outcomes;
+  }
+
+  public void setOutcomes(List<Outcome> outcomes) {
+    this.outcomes = outcomes;
+  }
+
+  public ModelCase warnings(List<Warning> warnings) {
+    this.warnings = warnings;
+    return this;
+  }
+
+  public ModelCase addWarningsItem(Warning warningsItem) {
+    if (this.warnings == null) {
+      this.warnings = new ArrayList<Warning>();
+    }
+    this.warnings.add(warningsItem);
+    return this;
+  }
+
+  /**
+   * Get warnings
+   * @return warnings
+   **/
+  @ApiModelProperty(value = "")
+
+  @Valid
+
+  public List<Warning> getWarnings() {
+    return warnings;
+  }
+
+  public void setWarnings(List<Warning> warnings) {
+    this.warnings = warnings;
+  }
+
+  public ModelCase notes(List<Note> notes) {
+    this.notes = notes;
+    return this;
+  }
+
+  public ModelCase addNotesItem(Note notesItem) {
+    if (this.notes == null) {
+      this.notes = new ArrayList<Note>();
+    }
+    this.notes.add(notesItem);
+    return this;
+  }
+
+  /**
+   * Get notes
+   * @return notes
+   **/
+  @ApiModelProperty(value = "")
+
+  @Valid
+
+  public List<Note> getNotes() {
+    return notes;
+  }
+
+  public void setNotes(List<Note> notes) {
+    this.notes = notes;
+  }
+
   public ModelCase contact(Contact contact) {
     this.contact = contact;
     return this;
@@ -207,7 +331,6 @@ public class ModelCase {
 
   /**
    * Get contact
-   *
    * @return contact
    **/
   @ApiModelProperty(value = "")
@@ -229,7 +352,6 @@ public class ModelCase {
 
   /**
    * Get address
-   *
    * @return address
    **/
   @ApiModelProperty(value = "")
@@ -251,7 +373,6 @@ public class ModelCase {
 
   /**
    * Get location
-   *
    * @return location
    **/
   @ApiModelProperty(value = "")
@@ -271,17 +392,6 @@ public class ModelCase {
     return this;
   }
 
-  /**
-   * Gets or sets the htc.
-   *
-   * @return htc
-   **/
-  @ApiModelProperty(value = "Gets or sets the htc.")
-
-  public Integer getHtc() {
-    return htc;
-  }
-
   public void setHtc(Integer htc) {
     this.htc = htc;
   }
@@ -292,11 +402,11 @@ public class ModelCase {
   }
 
   /**
-   * Priority
-   *
+   * Get priority
    * @return priority
    **/
-  @ApiModelProperty(value = "Priority")
+  @ApiModelProperty(value = "")
+
 
   public Integer getPriority() {
     return priority;
@@ -312,11 +422,11 @@ public class ModelCase {
   }
 
   /**
-   * Description
-   *
+   * Get description
    * @return description
    **/
-  @ApiModelProperty(value = "Description")
+  @ApiModelProperty(value = "")
+
 
   public String getDescription() {
     return description;
@@ -332,11 +442,11 @@ public class ModelCase {
   }
 
   /**
-   * Special Instructions
-   *
+   * Get specialInstructions
    * @return specialInstructions
    **/
-  @ApiModelProperty(value = "Special Instructions")
+  @ApiModelProperty(value = "")
+
 
   public String getSpecialInstructions() {
     return specialInstructions;
@@ -351,12 +461,15 @@ public class ModelCase {
     return this;
   }
 
+  public void setHoldUntil(OffsetDateTime holdUntil) {
+    this.holdUntil = holdUntil;
+  }
+
   /**
-   * HoldUntil
-   *
+   * Get holdUntil
    * @return holdUntil
    **/
-  @ApiModelProperty(value = "HoldUntil")
+  @ApiModelProperty(value = "")
 
   @Valid
 
@@ -364,8 +477,19 @@ public class ModelCase {
     return holdUntil;
   }
 
-  public void setHoldUntil(OffsetDateTime holdUntil) {
-    this.holdUntil = holdUntil;
+  /**
+   * Get visitCount
+   * @return visitCount
+   **/
+  @ApiModelProperty(value = "")
+
+  public Integer getVisitCount() {
+    return visitCount;
+  }
+
+  public ModelCase visitCount(Integer visitCount) {
+    this.visitCount = visitCount;
+    return this;
   }
 
   public ModelCase links(List<Link> links) {
@@ -373,6 +497,10 @@ public class ModelCase {
     return this;
   }
 
+  public void setVisitCount(Integer visitCount) {
+    this.visitCount = visitCount;
+  }
+  
   public ModelCase addLinksItem(Link linksItem) {
     if (this.links == null) {
       this.links = new ArrayList<Link>();
@@ -399,6 +527,14 @@ public class ModelCase {
   }
 
   @Override
+  public int hashCode() {
+    return Objects
+        .hash(id, reference, caseType, state, category, estabType, coordCode, outcomes, warnings, notes, contact,
+            address, location, htc, priority, description, specialInstructions, holdUntil, visitCount, _links);
+  }
+
+
+  @Override
   public boolean equals(java.lang.Object o) {
     if (this == o) {
       return true;
@@ -414,6 +550,9 @@ public class ModelCase {
         Objects.equals(this.category, _case.category) &&
         Objects.equals(this.estabType, _case.estabType) &&
         Objects.equals(this.coordCode, _case.coordCode) &&
+        Objects.equals(this.outcomes, _case.outcomes) &&
+        Objects.equals(this.warnings, _case.warnings) &&
+        Objects.equals(this.notes, _case.notes) &&
         Objects.equals(this.contact, _case.contact) &&
         Objects.equals(this.address, _case.address) &&
         Objects.equals(this.location, _case.location) &&
@@ -422,54 +561,12 @@ public class ModelCase {
         Objects.equals(this.description, _case.description) &&
         Objects.equals(this.specialInstructions, _case.specialInstructions) &&
         Objects.equals(this.holdUntil, _case.holdUntil) &&
-        Objects.equals(this.links, _case.links);
+        Objects.equals(this.visitCount, _case.visitCount) &&
+        Objects.equals(this._links, _case._links);
   }
-
-  @Override
-  public int hashCode() {
-    return Objects
-        .hash(id, reference, caseType, state, category, estabType, coordCode, contact, address, location, htc, priority,
-            description, specialInstructions, holdUntil, links);
-  }
-
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class ModelCase {\n");
-
-    sb.append("    id: ").append(toIndentedString(id)).append("\n");
-    sb.append("    reference: ").append(toIndentedString(reference)).append("\n");
-    sb.append("    caseType: ").append(toIndentedString(caseType)).append("\n");
-    sb.append("    state: ").append(toIndentedString(state)).append("\n");
-    sb.append("    category: ").append(toIndentedString(category)).append("\n");
-    sb.append("    estabType: ").append(toIndentedString(estabType)).append("\n");
-    sb.append("    coordCode: ").append(toIndentedString(coordCode)).append("\n");
-    sb.append("    contact: ").append(toIndentedString(contact)).append("\n");
-    sb.append("    address: ").append(toIndentedString(address)).append("\n");
-    sb.append("    location: ").append(toIndentedString(location)).append("\n");
-    sb.append("    htc: ").append(toIndentedString(htc)).append("\n");
-    sb.append("    priority: ").append(toIndentedString(priority)).append("\n");
-    sb.append("    description: ").append(toIndentedString(description)).append("\n");
-    sb.append("    specialInstructions: ").append(toIndentedString(specialInstructions)).append("\n");
-    sb.append("    holdUntil: ").append(toIndentedString(holdUntil)).append("\n");
-    sb.append("    _links: ").append(toIndentedString(links)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
+  
   /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(java.lang.Object o) {
-    if (o == null) {
-      return "null";
-    }
-    return o.toString().replace("\n", "\n    ");
-  }
-
-  /**
-   * Case State
+   * Gets or Sets state
    */
   public enum StateEnum {
     OPEN("open"),
@@ -497,6 +594,53 @@ public class ModelCase {
     public String toString() {
       return String.valueOf(value);
     }
+  }
+  
+  @Override
+  public int hashCode() {
+    return Objects
+        .hash(id, reference, caseType, state, category, estabType, coordCode, contact, address, location, htc, priority,
+            description, specialInstructions, holdUntil, visitCount, links);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class ModelCase {\n");
+
+    sb.append("    id: ").append(toIndentedString(id)).append("\n");
+    sb.append("    reference: ").append(toIndentedString(reference)).append("\n");
+    sb.append("    caseType: ").append(toIndentedString(caseType)).append("\n");
+    sb.append("    state: ").append(toIndentedString(state)).append("\n");
+    sb.append("    category: ").append(toIndentedString(category)).append("\n");
+    sb.append("    estabType: ").append(toIndentedString(estabType)).append("\n");
+    sb.append("    coordCode: ").append(toIndentedString(coordCode)).append("\n");
+    sb.append("    outcomes: ").append(toIndentedString(outcomes)).append("\n");
+    sb.append("    warnings: ").append(toIndentedString(warnings)).append("\n");
+    sb.append("    notes: ").append(toIndentedString(notes)).append("\n");
+    sb.append("    contact: ").append(toIndentedString(contact)).append("\n");
+    sb.append("    address: ").append(toIndentedString(address)).append("\n");
+    sb.append("    location: ").append(toIndentedString(location)).append("\n");
+    sb.append("    htc: ").append(toIndentedString(htc)).append("\n");
+    sb.append("    priority: ").append(toIndentedString(priority)).append("\n");
+    sb.append("    description: ").append(toIndentedString(description)).append("\n");
+    sb.append("    specialInstructions: ").append(toIndentedString(specialInstructions)).append("\n");
+    sb.append("    holdUntil: ").append(toIndentedString(holdUntil)).append("\n");
+    sb.append("    visitCount: ").append(toIndentedString(visitCount)).append("\n");
+    sb.append("    _links: ").append(toIndentedString(links)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(java.lang.Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
   }
 }
 

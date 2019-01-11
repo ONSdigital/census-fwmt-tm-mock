@@ -11,4 +11,5 @@ applications:
   env:
     logging_level_uk.gov.ons.fwmt: DEBUG
     logging_level_org.springframework.web: TRACE
-	JBP_CONFIG_OPEN_JDK_JRE: '{ jre: { version: 11.+ } }'c
+    JBP_CONFIG_OPEN_JDK_JRE: '{ jre: { version: 11.+ } }'
+    

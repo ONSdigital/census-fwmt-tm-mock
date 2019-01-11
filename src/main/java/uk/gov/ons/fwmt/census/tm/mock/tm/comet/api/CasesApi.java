@@ -55,7 +55,7 @@ public interface CasesApi {
       value = "/cases/{id}",
       consumes = {"application/json-patch+json", "application/json", "text/json", "application/_*+json"},
       method = RequestMethod.PUT)
-  ResponseEntity<Void> casesByIdPost(
+  ResponseEntity<Void> casesByIdPut(
       @ApiParam(value = "Identifier.", required = true)
       @PathVariable("id") String id,
       @ApiParam(value = "Case object.") @Valid
