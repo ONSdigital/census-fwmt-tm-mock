@@ -48,7 +48,7 @@ public class CasesApiController implements CasesApi {
       @ApiParam(value = "Case object.") @Valid @RequestBody ModelCase body) {
     mockLogger.logEndpoint("CasesApiController", "casesByIdPost");
     String accept = request.getHeader("Accept");
-    log.info("Job Recreived: " + body.getId() + ", accept: " + accept);
+    log.info("Job Recreived: " + body.getId());
     return new ResponseEntity<Void>(HttpStatus.OK);
   }
 
