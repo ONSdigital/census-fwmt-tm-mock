@@ -28,7 +28,7 @@ public class SwaggerDocumentationConfig {
         .apiInfo(apiInfo());
   }
 
-  ApiInfo apiInfo() {
+  private ApiInfo apiInfo() {
     return new ApiInfoBuilder()
         .title("Totalmobile Comet Cases")
         .description(

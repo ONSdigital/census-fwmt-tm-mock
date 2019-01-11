@@ -8,7 +8,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Configuration
 public class WebMvcConfig implements WebMvcConfigurer {
   @Autowired
-  RawRESTInterceptor interceptor;
+  private RawRESTInterceptor interceptor;
 
   @Override
   public void addInterceptors(InterceptorRegistry registry) {

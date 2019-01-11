@@ -43,6 +43,7 @@ public class CasesApiController implements CasesApi {
       @ApiParam(value = "Unique Id for Visit", required = true) @PathVariable("id") String id) {
     mockLogger.logEndpoint("CasesApiController", "casesByIdGet");
     String accept = request.getHeader("Accept");
+    // TODO implement this?
     return new ResponseEntity<ModelCase>(HttpStatus.NOT_IMPLEMENTED);
   }
 
@@ -64,6 +65,7 @@ public class CasesApiController implements CasesApi {
       @Valid @RequestParam(value = "pageSize", required = false) Integer pageSize) {
     mockLogger.logEndpoint("CasesApiController", "casesGet");
     String accept = request.getHeader("Accept");
+    // TODO implement this?
     return new ResponseEntity<FetchResponseCase>(HttpStatus.NOT_IMPLEMENTED);
   }
 }

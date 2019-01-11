@@ -80,7 +80,7 @@ public class ModelCase {
   private OffsetDateTime holdUntil = null;
   @JsonProperty("_links")
   @Valid
-  private List<Link> _links = null;
+  private List<Link> links = null;
 
   public ModelCase id(String id) {
     this.id = id;
@@ -492,20 +492,20 @@ public class ModelCase {
     return this;
   }
 
-  public ModelCase _links(List<Link> _links) {
-    this._links = _links;
+  public ModelCase links(List<Link> links) {
+    this.links = links;
     return this;
   }
 
   public void setVisitCount(Integer visitCount) {
     this.visitCount = visitCount;
   }
-
-  public ModelCase addLinksItem(Link _linksItem) {
-    if (this._links == null) {
-      this._links = new ArrayList<Link>();
+  
+  public ModelCase addLinksItem(Link linksItem) {
+    if (this.links == null) {
+      this.links = new ArrayList<Link>();
     }
-    this._links.add(_linksItem);
+    this.links.add(linksItem);
     return this;
   }
 
@@ -519,11 +519,11 @@ public class ModelCase {
   @Valid
 
   public List<Link> getLinks() {
-    return _links;
+    return links;
   }
 
-  public void setLinks(List<Link> _links) {
-    this._links = _links;
+  public void setLinks(List<Link> links) {
+    this.links = links;
   }
 
   @Override
@@ -564,7 +564,7 @@ public class ModelCase {
         Objects.equals(this.visitCount, _case.visitCount) &&
         Objects.equals(this._links, _case._links);
   }
-
+  
   /**
    * Gets or Sets state
    */
@@ -595,6 +595,13 @@ public class ModelCase {
       return String.valueOf(value);
     }
   }
+  
+  @Override
+  public int hashCode() {
+    return Objects
+        .hash(id, reference, caseType, state, category, estabType, coordCode, contact, address, location, htc, priority,
+            description, specialInstructions, holdUntil, visitCount, links);
+  }
 
   @Override
   public String toString() {
@@ -620,7 +627,7 @@ public class ModelCase {
     sb.append("    specialInstructions: ").append(toIndentedString(specialInstructions)).append("\n");
     sb.append("    holdUntil: ").append(toIndentedString(holdUntil)).append("\n");
     sb.append("    visitCount: ").append(toIndentedString(visitCount)).append("\n");
-    sb.append("    _links: ").append(toIndentedString(_links)).append("\n");
+    sb.append("    _links: ").append(toIndentedString(links)).append("\n");
     sb.append("}");
     return sb.toString();
   }
