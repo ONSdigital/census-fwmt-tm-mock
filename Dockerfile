@@ -1,6 +1,5 @@
 FROM openjdk:11-jdk-slim
 ARG jar
-VOLUME /tmp
-COPY $jar mock.jar
+COPY $jar /opt/mock.jar
 ENV JAVA_OPTS=""
-ENTRYPOINT [ "sh", "-c", "java -jar /mock.jar" ]
+ENTRYPOINT [ "java", "-jar", "/opt/mock.jar" ]
