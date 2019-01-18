@@ -170,7 +170,7 @@ public class QueueController {
       BasicProperties properties = builder.build();
 
       channel.basicPublish("", routingkey, properties, message.getBytes());
-      log.info("Published to exchange: " + exchange);
+    log.info("Published to exchange: " + exchange);
 
       return ResponseEntity.ok(true);
     } catch (IOException | TimeoutException e) {
