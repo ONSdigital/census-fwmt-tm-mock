@@ -55,3 +55,7 @@ rabbitmq:
     password: guest
     port: 5672
     virtualHost: /
+
+Customisation:
+  logging:
+    logFlagType: "logAllMessages"
