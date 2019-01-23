@@ -16,8 +16,8 @@ public class MockLogger {
   private List<MockMessage> messages = new Vector<>();
 
   private int count = 0;
-  @Value("${customisation.logging.logFlagType}")
-  private String logFlagType;
+  @Value("${customisation.logging.logFlagType.logAllMessages}")
+  private boolean logAllMessages;
 
   // methods for mock logging
 
@@ -26,7 +26,7 @@ public class MockLogger {
       MockMessage message = new MockMessage();
       currentMessage.set(message);
 
-      if (logFlagType.equals("logAllMessages")) {
+      if (logAllMessages) {
         messages.add(message);
       }
       count++;
@@ -90,7 +90,7 @@ public class MockLogger {
   // methods for retrieving
 
   public List<MockMessage> getAllMessages() {
-    if (logFlagType.equals("noLogs")) {
+    if (!logAllMessages) {
       MockMessage messageCountResult = new MockMessage();
       messageCountResult.setRequestMessageParsed("Messages received by mock: " + count);
       messages.add(messageCountResult);
