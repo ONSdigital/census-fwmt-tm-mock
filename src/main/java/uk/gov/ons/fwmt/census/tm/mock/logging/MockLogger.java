@@ -16,7 +16,7 @@ public class MockLogger {
   private List<MockMessage> messages = new Vector<>();
 
   private int count = 0;
-  @Value("${Customisation.logging.logFlagType}")
+  @Value("${customisation.logging.logFlagType}")
   private String logFlagType;
 
   // methods for mock logging

@@ -56,6 +56,6 @@ rabbitmq:
     port: 5672
     virtualHost: /
 
-Customisation:
+customisation:
   logging:
     logFlagType: "logAllMessages"
