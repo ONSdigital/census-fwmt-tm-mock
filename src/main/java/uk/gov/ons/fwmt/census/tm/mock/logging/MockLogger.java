@@ -105,5 +105,6 @@ public class MockLogger {
 
   public void reset() {
     messages.clear();
+    count = 0;
   }
 }
