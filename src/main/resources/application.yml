@@ -15,8 +15,10 @@ spring:
     serialization:
       WRITE_DATES_AS_TIMESTAMPS: false
 
-management.endpoint.health.show-details: always
 springfox.documentation.swagger.v2.path: "/api-docs"
+
+# Place /info and /health in the root
+management.endpoints.web.base-path: ''
 
 logging:
   level:
