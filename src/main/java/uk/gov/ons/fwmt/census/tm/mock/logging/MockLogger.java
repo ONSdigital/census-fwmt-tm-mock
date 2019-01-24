@@ -16,7 +16,7 @@ public class MockLogger {
 
   private List<MockMessage> messages = new Vector<>();
 
-  private AtomicInteger count = new AtomicInteger();
+  private AtomicInteger count = new AtomicInteger(0);
   @Value("${customisation.logging.logFlagType.logAllMessages}")
   private boolean logAllMessages;
 

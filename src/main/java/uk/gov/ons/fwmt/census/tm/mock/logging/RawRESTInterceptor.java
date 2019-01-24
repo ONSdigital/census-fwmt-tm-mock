@@ -48,5 +48,6 @@ public class RawRESTInterceptor implements HandlerInterceptor {
     } else {
       mockLogger.logRawResponse(builder.toString(), null);
     }
+    mockLogger.finalise();
   }
 }
