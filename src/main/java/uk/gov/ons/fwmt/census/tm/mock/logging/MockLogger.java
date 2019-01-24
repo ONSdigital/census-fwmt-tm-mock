@@ -8,6 +8,7 @@ import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.List;
 import java.util.Vector;
+import java.util.concurrent.atomic.AtomicInteger;
 
 @Component
 public class MockLogger {
@@ -15,7 +16,7 @@ public class MockLogger {
 
   private List<MockMessage> messages = new Vector<>();
 
-  private static int count = 0;
+  private AtomicInteger count = new AtomicInteger();
   @Value("${customisation.logging.logFlagType.logAllMessages}")
   private boolean logAllMessages;
 
@@ -25,7 +26,7 @@ public class MockLogger {
     if (currentMessage.get() == null) {
       MockMessage message = new MockMessage();
       currentMessage.set(message);
-      count++;
+      count.incrementAndGet();
 
       if (logAllMessages) {
         messages.add(message);
@@ -97,7 +98,7 @@ public class MockLogger {
   }
 
   public int getJobCount() {
-    return count;
+    return count.get();
   }
 
   public int getFaultCount() {
@@ -106,6 +107,6 @@ public class MockLogger {
 
   public void reset() {
     messages.clear();
-    count = 0;
+    count.set(0);
   }
 }
