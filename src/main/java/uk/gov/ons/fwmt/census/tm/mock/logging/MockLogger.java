@@ -1,5 +1,6 @@
 package uk.gov.ons.fwmt.census.tm.mock.logging;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.util.HtmlUtils;
 
@@ -14,13 +15,21 @@ public class MockLogger {
 
   private List<MockMessage> messages = new Vector<>();
 
+  private int count = 0;
+  @Value("${customisation.logging.logFlagType.logAllMessages}")
+  private boolean logAllMessages;
+
   // methods for mock logging
 
   private void setupCurrentMessage() {
     if (currentMessage.get() == null) {
       MockMessage message = new MockMessage();
       currentMessage.set(message);
-      messages.add(message);
+
+      if (logAllMessages) {
+        messages.add(message);
+      }
+      count++;
     }
   }
 
@@ -50,12 +59,7 @@ public class MockLogger {
     setupCurrentMessage();
     currentMessage.get().responseTimestamp = LocalDateTime.now().toString();
     currentMessage.get().isFault = false;
-    if (rawHeaders != null) {
-      currentMessage.get().responseRawHeaders = rawHeaders;
-    }
-    if (rawHtml != null) {
-      currentMessage.get().responseRawHtml = HtmlUtils.htmlEscape(rawHtml);
-    }
+    getCurrentMessage(rawHeaders, rawHtml);
   }
 
   public <R> void logParsedResponse(R response) {
@@ -67,6 +71,10 @@ public class MockLogger {
     setupCurrentMessage();
     currentMessage.get().responseTimestamp = LocalDateTime.now().toString();
     currentMessage.get().isFault = true;
+    getCurrentMessage(rawHeaders, rawHtml);
+  }
+
+  private void getCurrentMessage(String rawHeaders, String rawHtml) {
     if (rawHeaders != null) {
       currentMessage.get().responseRawHeaders = rawHeaders;
     }
@@ -82,6 +90,12 @@ public class MockLogger {
   // methods for retrieving
 
   public List<MockMessage> getAllMessages() {
+    if (!logAllMessages) {
+      MockMessage messageCountResult = new MockMessage();
+      messageCountResult.setRequestMessageParsed("Messages received by mock: " + count);
+      messages.add(messageCountResult);
+      return Collections.unmodifiableList(messages);
+    }
     return Collections.unmodifiableList(messages);
   }
 
@@ -91,5 +105,6 @@ public class MockLogger {
 
   public void reset() {
     messages.clear();
+    count = 0;
   }
 }
