@@ -1,13 +1,13 @@
 package uk.gov.ons.fwmt.census.tm.mock.controller;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import uk.gov.ons.fwmt.census.tm.mock.logging.MockLogger;
 import uk.gov.ons.fwmt.census.tm.mock.logging.MockMessage;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("logger")
@@ -22,6 +22,11 @@ public class MockLoggerController {
   @GetMapping(value = "allMessages", produces = "application/json")
   public List<MockMessage> getAllMessages() {
     return mockLogger.getAllMessages();
+  }
+
+  @GetMapping(value = "getCount", produces = "application/json")
+  public int getJobCount() {
+    return mockLogger.getJobCount();
   }
 
   @GetMapping(value = "faultCount", produces = "application/json")
