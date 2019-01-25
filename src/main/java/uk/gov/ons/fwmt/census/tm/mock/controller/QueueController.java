@@ -25,49 +25,27 @@ import java.util.concurrent.TimeoutException;
 @RequestMapping("/queue")
 public class QueueController {
 
-  @Value("${rabbitmq.fwmt.host}")
-  private String rabbitmqFwmtHost;
+  @Value("${rabbitmq.host}")
+  private String rabbitmqHost;
 
-  @Value("${rabbitmq.fwmt.username}")
-  private String rabbitmqFwmtUsername;
+  @Value("${rabbitmq.username}")
+  private String rabbitmqUsername;
 
-  @Value("${rabbitmq.fwmt.password}")
-  private String rabbitmqFwmtPassword;
+  @Value("${rabbitmq.password}")
+  private String rabbitmqPassword;
 
-  @Value("${rabbitmq.fwmt.port}")
-  private int rabbitmqFwmtPort;
+  @Value("${rabbitmq.port}")
+  private int rabbitmqPort;
 
-  @Value("${rabbitmq.fwmt.virtualHost}")
-  private String rabbitmqFwmtVirtualHost;
-
-  @Value("${rabbitmq.rm.host}")
-  private String rabbitmqRmHost;
-
-  @Value("${rabbitmq.rm.username}")
-  private String rabbitmqRmUsername;
-
-  @Value("${rabbitmq.rm.password}")
-  private String rabbitmqRmPassword;
-
-  @Value("${rabbitmq.rm.port}")
-  private int rabbitmqRmPort;
-
-  @Value("${rabbitmq.rm.virtualHost}")
-  private String rabbitmqRmVirtualHost;
+  @Value("${rabbitmq.virtualHost}")
+  private String rabbitmqVirtualHost;
 
   @GetMapping(value = "/message", produces = "application/json")
   public ResponseEntity<String> getMessageOffQueue(@RequestParam("qname") String qname) {
     Connection connection = null;
     Channel channel = null;
-    ConnectionFactory factory = null;
-
     try {
-      if (qname.toUpperCase().contains("ACTION.FIELD")) {
-        log.info("Building RM RabbitMQ Factory");
-      } else {
-        factory = getFwmtConnectionFactory();
-        log.info("Building FWMT RabbitMQ Factory");
-      }
+      ConnectionFactory factory = getRabbitMQConnectionFactory();
       connection = factory.newConnection();
       channel = connection.createChannel();
 
@@ -80,7 +58,7 @@ public class QueueController {
         return ResponseEntity.ok(new String(body));
       }
     } catch (IOException | TimeoutException e) {
-      e.printStackTrace();
+      log.error("Issue getting message from {} queue.", e, qname);
       return ResponseEntity.badRequest().build();
     } finally {
       try {
@@ -89,7 +67,7 @@ public class QueueController {
         if (connection != null)
           connection.close();
       } catch (Exception e) {
-        e.printStackTrace();
+        log.error("Issue closing RabbitMQ connections", e);
       }
     }
   }
@@ -98,15 +76,8 @@ public class QueueController {
   public ResponseEntity<Long> getMessageCount(@PathVariable("qname") String qname) {
     Connection connection = null;
     Channel channel = null;
-    ConnectionFactory factory = null;
-
     try {
-      if (qname.toUpperCase().contains("ACTION.FIELD")) {
-        log.info("Building RM RabbitMQ Factory");
-      } else {
-        factory = getFwmtConnectionFactory();
-        log.info("Building FWMT RabbitMQ Factory");
-      }
+      ConnectionFactory factory = getRabbitMQConnectionFactory();
       connection = factory.newConnection();
       channel = connection.createChannel();
 
@@ -114,7 +85,7 @@ public class QueueController {
       log.info("recieved msg count from Queue: " + qname);
       return ResponseEntity.ok(new Long(messageCount));
     } catch (IOException | TimeoutException e) {
-      e.printStackTrace();
+      log.error("Issue getting message count from {} queue.", e, qname);
       return ResponseEntity.badRequest().build();
     } finally {
       try {
@@ -123,26 +94,17 @@ public class QueueController {
         if (connection != null)
           connection.close();
       } catch (Exception e) {
-        e.printStackTrace();
+        log.error("Issue closing RabbitMQ connections", e);
       }
     }
   }
 
-  private ConnectionFactory getFwmtConnectionFactory() {
+  private ConnectionFactory getRabbitMQConnectionFactory() {
     ConnectionFactory factory = new ConnectionFactory();
-    factory.setHost(rabbitmqFwmtHost);
-    factory.setUsername(rabbitmqFwmtUsername);
-    factory.setPassword(rabbitmqFwmtPassword);
-    factory.setVirtualHost(rabbitmqFwmtVirtualHost);
-    return factory;
-  }
-
-  private ConnectionFactory getRmConnectionFactory() {
-    ConnectionFactory factory = new ConnectionFactory();
-    factory.setHost(rabbitmqRmHost);
-    factory.setUsername(rabbitmqRmUsername);
-    factory.setPassword(rabbitmqRmPassword);
-    factory.setVirtualHost(rabbitmqRmVirtualHost);
+    factory.setHost(rabbitmqHost);
+    factory.setUsername(rabbitmqUsername);
+    factory.setPassword(rabbitmqPassword);
+    factory.setVirtualHost(rabbitmqVirtualHost);
     return factory;
   }
 
@@ -151,17 +113,8 @@ public class QueueController {
       @RequestParam("routingkey") String routingkey, @RequestBody String message) {
     Connection connection = null;
     Channel channel = null;
-    ConnectionFactory factory = null;
-
     try {
-      if (routingkey.toUpperCase().contains("ACTION.FIELD")) {
-        factory = getRmConnectionFactory();
-        log.info("Building RM RabbitMQ Factory");
-      } else {
-        factory = getFwmtConnectionFactory();
-        log.info("Building FWMT RabbitMQ Factory");
-      }
-
+      ConnectionFactory factory = getRabbitMQConnectionFactory();
       connection = factory.newConnection();
       channel = connection.createChannel();
 
@@ -170,11 +123,11 @@ public class QueueController {
       BasicProperties properties = builder.build();
 
       channel.basicPublish("", routingkey, properties, message.getBytes());
-    log.info("Published to exchange: " + exchange);
+      log.info("Published to exchange: " + exchange);
 
       return ResponseEntity.ok(true);
     } catch (IOException | TimeoutException e) {
-      e.printStackTrace();
+      log.error("Issue adding message to {} exchange.", e, exchange);
       return ResponseEntity.badRequest().build();
     } finally {
       try {
@@ -183,7 +136,7 @@ public class QueueController {
         if (connection != null)
           connection.close();
       } catch (IOException | TimeoutException e) {
-        e.printStackTrace();
+        log.error("Issue closing RabbitMQ connections", e);
       }
     }
   }
@@ -192,23 +145,17 @@ public class QueueController {
   public ResponseEntity<Boolean> deleteMessage(@RequestParam("qname") String qname) {
     Connection connection = null;
     Channel channel = null;
-    ConnectionFactory factory = null;
-
     try {
-      if (qname.toUpperCase().contains("ACTION.FIELD")) {
-        log.info("Building RM RabbitMQ Factory");
-      } else {
-        factory = getFwmtConnectionFactory();
-        log.info("Building FWMT RabbitMQ Factory");
-      }
+      ConnectionFactory factory = getRabbitMQConnectionFactory();
       connection = factory.newConnection();
       channel = connection.createChannel();
+
       channel.queuePurge(qname);
       log.info("Purged Queue: " + qname);
 
       return ResponseEntity.ok(true);
     } catch (IOException | TimeoutException e) {
-      e.printStackTrace();
+      log.error("Issue deleting message from {} queue.", e, qname);
       return ResponseEntity.badRequest().build();
     } finally {
       try {
@@ -217,9 +164,8 @@ public class QueueController {
         if (connection != null)
           connection.close();
       } catch (IOException | TimeoutException e) {
-        e.printStackTrace();
+        log.error("Issue closing RabbitMQ connections", e);
       }
     }
   }
-
 }
