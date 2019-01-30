@@ -1,11 +1,4 @@
 rabbitmq:
-  rm:
-    username: ${cloud.services.rm-rabbitmq.connection.username}
-    password: ${cloud.services.rm-rabbitmq.connection.password}
-    hostname: ${cloud.services.rm-rabbitmq.connection.host}
-    port: ${cloud.services.rm-rabbitmq.connection.port}
-    virtualHost: ${cloud.services.rm-rabbitmq.connection.virtualhost}
-  fwmt:
     username: ${cloud.services.fwmt-rabbit.connection.username}
     password: ${cloud.services.fwmt-rabbit.connection.password}
     hostname: ${cloud.services.fwmt-rabbit.connection.host}
