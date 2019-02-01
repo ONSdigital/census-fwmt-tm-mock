@@ -21,8 +21,8 @@ after_success:
   set -e
   if [[ "$TRAVIS_BRANCH" = "master" ]] && [[ "$TRAVIS_PULL_REQUEST" = "false" ]] && [[ $TRAVIS_COMMIT_MESSAGE != "JENKINS SNAPSHOT UPDATE" ]]; then
     echo "$DOCKER_PASSWORD" | base64 --decode | docker login "$DOCKER_REGISTRY" --username "$DOCKER_USERNAME" --password-stdin
-    docker build -t "$DOCKER_LOCATION"/fwmt-census-mocks -t "$DOCKER_LOCATION"/fwmt-census-mocks:mock-service-$TRAVIS_BUILD_NUMBER --build-arg jar=build/libs/fwmt-census-tm-mock-*.jar .;
-    docker push "$DOCKER_LOCATION"/fwmt-census-mocks;
+    docker build -t "$DOCKER_LOCATION"/census-rm-fwmttmmock -t "$DOCKER_LOCATION"/census-rm-fwmttmmock:mock-service-$TRAVIS_BUILD_NUMBER --build-arg jar=build/libs/fwmt-census-tm-mock-*.jar .;
+    docker push "$DOCKER_LOCATION"/census-rm-fwmttmmock;
   fi
 - |
   set -e
