@@ -83,7 +83,7 @@ public class QueueController {
 
       long messageCount = channel.messageCount(qname);
       log.info("recieved msg count from Queue: " + qname);
-      return ResponseEntity.ok(new Long(messageCount));
+      return ResponseEntity.ok(messageCount);
     } catch (IOException | TimeoutException e) {
       log.error("Issue getting message count from {} queue.", e, qname);
       return ResponseEntity.badRequest().build();
@@ -122,7 +122,7 @@ public class QueueController {
       builder.contentType("text/xml");
       BasicProperties properties = builder.build();
 
-      channel.basicPublish("", routingkey, properties, message.getBytes());
+      channel.basicPublish(exchange, routingkey, properties, message.getBytes());
       log.info("Published to exchange: " + exchange);
 
       return ResponseEntity.ok(true);
