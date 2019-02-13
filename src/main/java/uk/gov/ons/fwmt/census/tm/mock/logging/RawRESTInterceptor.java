@@ -12,7 +12,7 @@ import java.util.Collections;
 
 @Component
 public class RawRESTInterceptor implements HandlerInterceptor {
-  @Autowired private MockLogger mockLogger;
+  @Autowired private MockMessageLogger mockLogger;
 
   @Override public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
     ContentCachingRequestWrapper requestCacheWrapperObject = new ContentCachingRequestWrapper(request);

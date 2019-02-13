@@ -6,7 +6,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import uk.gov.ons.fwmt.census.tm.mock.logging.MockLogger;
+import uk.gov.ons.fwmt.census.tm.mock.logging.MockMessageLogger;
+import uk.gov.ons.fwmt.census.tm.mock.comet.api.CaseManager;
 import uk.gov.ons.fwmt.census.tm.mock.logging.MockMessage;
 
 import java.util.List;
@@ -14,12 +15,12 @@ import java.util.List;
 @RestController
 @RequestMapping("logger")
 public class MockLoggerController {
-  private MockLogger mockLogger;
-
+  
   @Autowired
-  public MockLoggerController(MockLogger mockLogger) {
-    this.mockLogger = mockLogger;
-  }
+  private MockMessageLogger mockLogger;
+  
+  @Autowired
+  private CaseManager caseManager;
 
   @GetMapping(value = "allMessages", produces = "application/json")
   public ResponseEntity<List<MockMessage>> getAllMessages() {
@@ -44,5 +45,6 @@ public class MockLoggerController {
   @GetMapping(value = "reset")
   public void reset() {
     mockLogger.reset();
+    caseManager.reset();
   }
 }
