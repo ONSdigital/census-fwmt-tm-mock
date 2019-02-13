@@ -11,7 +11,7 @@ import java.util.Vector;
 import java.util.concurrent.atomic.AtomicInteger;
 
 @Component
-public class MockLogger {
+public class MockMessageLogger {
   private ThreadLocal<MockMessage> currentMessage = new ThreadLocal<>();
 
   private List<MockMessage> messages = new Vector<>();
@@ -47,7 +47,7 @@ public class MockLogger {
       currentMessage.get().requestRawHeaders = rawHeaders;
     }
     if (rawHtml != null) {
-      currentMessage.get().requestRawHtml = HtmlUtils.htmlEscape(rawHtml);
+      currentMessage.get().responseRawContents = HtmlUtils.htmlEscape(rawHtml);
     }
   }
 
@@ -80,7 +80,7 @@ public class MockLogger {
       currentMessage.get().responseRawHeaders = rawHeaders;
     }
     if (rawHtml != null) {
-      currentMessage.get().responseRawHtml = HtmlUtils.htmlEscape(rawHtml);
+      currentMessage.get().responseRawContents = HtmlUtils.htmlEscape(rawHtml);
     }
   }
 

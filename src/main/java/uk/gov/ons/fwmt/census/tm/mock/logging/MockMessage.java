@@ -13,14 +13,17 @@ public class MockMessage {
   // request
   public String requestTimestamp;
   public String requestRawHeaders;
-  public String requestRawHtml;
+  public String requestRawContents;
   public Object requestMessageParsed;
 
   // response
   public String responseTimestamp;
   public String responseRawHeaders;
-  public String responseRawHtml;
+  public String responseRawContents;
   public Object responseMessageParsed;
   public boolean isFault;
+  
+  public Class<?> klass;
+  public String entityId;
 
 }

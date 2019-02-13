@@ -3,23 +3,24 @@
  * https://github.com/swagger-api/swagger-codegen
  * Do not edit the class manually.
  */
-package uk.gov.ons.fwmt.census.tm.mock.tm.comet.api;
+package uk.gov.ons.fwmt.census.tm.mock.comet.api;
 
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
+import javax.validation.Valid;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import uk.gov.ons.fwmt.census.tm.mock.tm.comet.model.FetchResponseCase;
-import uk.gov.ons.fwmt.census.tm.mock.tm.comet.model.ModelCase;
 
-import javax.validation.Valid;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
+import uk.gov.ons.fwmt.census.common.data.modelcase.FetchResponseCase;
+import uk.gov.ons.fwmt.census.common.data.modelcase.ModelCase;
 
 @javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2018-12-07T11:49:58.389925Z[Europe/London]")
 

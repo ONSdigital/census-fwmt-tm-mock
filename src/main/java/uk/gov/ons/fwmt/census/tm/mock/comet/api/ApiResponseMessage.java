@@ -1,4 +1,4 @@
-package uk.gov.ons.fwmt.census.tm.mock.tm.comet.api;
+package uk.gov.ons.fwmt.census.tm.mock.comet.api;
 
 import javax.xml.bind.annotation.XmlTransient;
 

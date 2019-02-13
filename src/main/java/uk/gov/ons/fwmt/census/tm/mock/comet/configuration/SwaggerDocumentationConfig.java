@@ -1,4 +1,4 @@
-package uk.gov.ons.fwmt.census.tm.mock.tm.comet.configuration;
+package uk.gov.ons.fwmt.census.tm.mock.comet.configuration;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

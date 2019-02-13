@@ -1,5 +1,7 @@
 package uk.gov.ons.fwmt.census.tm.mock.tm.comet.api;
 
+import static org.junit.Assert.assertEquals;
+
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -8,10 +10,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
-import uk.gov.ons.fwmt.census.tm.mock.tm.comet.model.FetchResponseCase;
-import uk.gov.ons.fwmt.census.tm.mock.tm.comet.model.ModelCase;
 
-import static org.junit.Assert.assertEquals;
+import uk.gov.ons.fwmt.census.common.data.modelcase.FetchResponseCase;
+import uk.gov.ons.fwmt.census.common.data.modelcase.ModelCase;
+import uk.gov.ons.fwmt.census.tm.mock.comet.api.CasesApi;
 
 @Ignore
 @RunWith(SpringRunner.class)

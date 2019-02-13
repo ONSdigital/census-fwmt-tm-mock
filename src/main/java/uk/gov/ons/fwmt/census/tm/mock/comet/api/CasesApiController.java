@@ -1,6 +1,9 @@
-package uk.gov.ons.fwmt.census.tm.mock.tm.comet.api;
+package uk.gov.ons.fwmt.census.tm.mock.comet.api;
 
-import io.swagger.annotations.ApiParam;
+import javax.annotation.Generated;
+import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,13 +13,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
-import uk.gov.ons.fwmt.census.tm.mock.logging.MockLogger;
-import uk.gov.ons.fwmt.census.tm.mock.tm.comet.model.FetchResponseCase;
-import uk.gov.ons.fwmt.census.tm.mock.tm.comet.model.ModelCase;
 
-import javax.annotation.Generated;
-import javax.servlet.http.HttpServletRequest;
-import javax.validation.Valid;
+import io.swagger.annotations.ApiParam;
+import uk.gov.ons.fwmt.census.common.data.modelcase.FetchResponseCase;
+import uk.gov.ons.fwmt.census.common.data.modelcase.ModelCase;
+import uk.gov.ons.fwmt.census.tm.mock.logging.MockMessageLogger;
 
 @Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2018-12-07T11:49:58.389925Z[Europe/London]")
 
@@ -25,22 +26,24 @@ public class CasesApiController implements CasesApi {
 
   private static final Logger log = LoggerFactory.getLogger(CasesApiController.class);
 
-  private MockLogger mockLogger;
-
-  private final HttpServletRequest request;
-
   @Autowired
-  public CasesApiController(MockLogger mockLogger, HttpServletRequest request) {
-    this.mockLogger = mockLogger;
-    this.request = request;
-  }
-
+  private MockMessageLogger mockLogger;
+  
+  @Autowired
+  private HttpServletRequest request;
+  
+  @Autowired
+  private CaseManager caseManager;
+  
   public ResponseEntity<ModelCase> casesByIdGet(
       @ApiParam(value = "Unique Id for Visit", required = true) @PathVariable("id") String id) {
     mockLogger.logEndpoint("CasesApiController", "casesByIdGet");
-//    String accept = request.getHeader("Accept");
-    // TODO implement this?
-    return new ResponseEntity<ModelCase>(HttpStatus.NOT_IMPLEMENTED);
+    ModelCase modelCase = caseManager.getCase(id);
+    if (modelCase!=null) {
+      return new ResponseEntity<ModelCase>(modelCase, HttpStatus.ACCEPTED);
+    }else {
+      return new ResponseEntity<ModelCase>(HttpStatus.NOT_FOUND);      
+    }
   }
 
   public ResponseEntity<Void> casesByIdPut(
@@ -49,6 +52,7 @@ public class CasesApiController implements CasesApi {
     mockLogger.logEndpoint("CasesApiController", "casesByIdPost");
     String accept = request.getHeader("Accept");
     log.info("Job Recreived: " + body.getId(), " with accept: " + accept);
+    caseManager.addCase(body);
     return new ResponseEntity<Void>(HttpStatus.OK);
   }
 
@@ -60,8 +64,6 @@ public class CasesApiController implements CasesApi {
       @ApiParam(value = "Specify the maximum number of results to return per request.")
       @Valid @RequestParam(value = "pageSize", required = false) Integer pageSize) {
     mockLogger.logEndpoint("CasesApiController", "casesGet");
-//    String accept = request.getHeader("Accept");
-    // TODO implement this?
     return new ResponseEntity<FetchResponseCase>(HttpStatus.NOT_IMPLEMENTED);
   }
 }
