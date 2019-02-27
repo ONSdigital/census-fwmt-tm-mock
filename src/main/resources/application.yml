@@ -5,7 +5,7 @@ server:
 
 spring:
   application:
-    name: fwmt-census-tm-mocks
+    name: census-fwmt-tm-mocks
   security:
     user:
       name: "user"
