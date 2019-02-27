@@ -26,7 +26,7 @@ plugins {
     id 'com.jfrog.artifactory' version '4.8.1'
 }
 
-mainClassName = 'uk.gov.ons.fwmt.census.tm.mock.Application'
+mainClassName = 'uk.gov.ons.census.fwmt.tm.mock.Application'
 
 description = 'census-fwmt-tm-mocks'
 group = 'uk.gov.ons.fwmt'

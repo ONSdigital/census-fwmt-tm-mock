@@ -1,4 +1,4 @@
-package uk.gov.ons.fwmt.census.tm.mock.tm.comet.api;
+package uk.gov.ons.census.fwmt.tm.mock.tm.comet.api;
 
 import static org.junit.Assert.assertEquals;
 
@@ -11,9 +11,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import uk.gov.ons.fwmt.census.common.data.modelcase.FetchResponseCase;
-import uk.gov.ons.fwmt.census.common.data.modelcase.ModelCase;
-import uk.gov.ons.fwmt.census.tm.mock.comet.api.CasesApi;
+import uk.gov.ons.census.fwmt.common.data.modelcase.FetchResponseCase;
+import uk.gov.ons.census.fwmt.common.data.modelcase.ModelCase;
+import uk.gov.ons.census.fwmt.tm.mock.comet.api.CasesApi;
 
 @Ignore
 @RunWith(SpringRunner.class)
