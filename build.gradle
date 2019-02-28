@@ -29,14 +29,14 @@ plugins {
 mainClassName = 'uk.gov.ons.census.fwmt.tm.mock.Application'
 
 description = 'census-fwmt-tm-mocks'
-group = 'uk.gov.ons.fwmt'
+group = 'uk.gov.ons.census.fwmt'
 version = '3.0.1-SNAPSHOT'
 
 sourceCompatibility = 11
 targetCompatibility = 11
 
 jar {
-    group = 'uk.gov.ons.fwmt'
+    group = 'uk.gov.ons.census.fwmt'
     baseName = 'census-fwmt-tm-mock'
     version = version
 }
