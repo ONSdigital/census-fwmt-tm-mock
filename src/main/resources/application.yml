@@ -29,19 +29,6 @@ logging:
     console: "%d{yyyy-MMM-dd HH:mm:ss.SSS} %-5level [%thread] [%X{CID}] %logger{1}::%M - %msg%n"
     file: "%d{yyyy-MMM-dd HH:mm:ss.SSS} %-5level [%thread] [%X{CID}] %logger{1}::%M - %msg%n"
 
-totalmobile:
-  username: ""
-  password: ""
-  url: ""
-  message-queue-path: "/ws/MessageQueueWs.asmx"
-  message-queue-wsdl-path: "src/main/resources/wsdl/Messaging_MessageQueueWs.wsdl"
-  message-queue-namespace: "http://schemas.consiliumtechnologies.com/wsdl/mobile/2007/07/messaging/"
-  message-queue-package: "com.consiliumtechnologies.schemas.services.mobile._2009._03.messaging"
-  outgoing-ws-namespace: "http://schemas.consiliumtechnologies.com/services/mobile/2009/03/messaging"
-  web:
-    login-url: "/WebAdmin/Login"
-    save-user-url: "/WebAdmin/Administration/Users/SaveUser"
-
 rabbitmq:
     host: localhost
     username: guest
