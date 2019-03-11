@@ -1,10 +1,9 @@
 package uk.gov.ons.census.fwmt.tm.mock.comet.api;
 
+import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2018-12-07T11:49:58.389925Z[Europe/London]")
-
-@javax.xml.bind.annotation.XmlRootElement
+@XmlRootElement
 public class ApiResponseMessage {
   public static final int ERROR = 1;
   public static final int WARNING = 2;
@@ -12,9 +11,9 @@ public class ApiResponseMessage {
   public static final int OK = 4;
   public static final int TOO_BUSY = 5;
 
-  private int code;
-  private String type;
-  private String message;
+  int code;
+  String type;
+  String message;
 
   public ApiResponseMessage() {
   }

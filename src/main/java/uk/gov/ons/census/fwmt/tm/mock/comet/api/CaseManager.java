@@ -1,21 +1,20 @@
 package uk.gov.ons.census.fwmt.tm.mock.comet.api;
 
+import org.springframework.stereotype.Component;
+import uk.gov.ons.census.fwmt.common.data.modelcase.CaseRequest;
+
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-import org.springframework.stereotype.Component;
-
-import uk.gov.ons.census.fwmt.common.data.modelcase.ModelCase;
-
 @Component
 public class CaseManager {
-  private Map<String, ModelCase> caseDirectory = new ConcurrentHashMap<>();
-  
-  public void addCase(ModelCase kase) {
-    caseDirectory.put(kase.getId(), kase);
+  private Map<String, CaseRequest> caseDirectory = new ConcurrentHashMap<>();
+
+  public void addCase(CaseRequest caseRequest) {
+    caseDirectory.put(caseRequest.getReference(), caseRequest);
   }
-  
-  public ModelCase getCase(String id) {
+
+  public CaseRequest getCase(String id) {
     return caseDirectory.get(id);
   }
 

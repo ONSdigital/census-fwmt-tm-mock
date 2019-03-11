@@ -8,8 +8,6 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2018-12-07T11:49:58.389925Z[Europe/London]")
-
 public class ApiOriginFilter implements javax.servlet.Filter {
   @Override
   public void doFilter(ServletRequest request, ServletResponse response,
@@ -23,11 +21,9 @@ public class ApiOriginFilter implements javax.servlet.Filter {
 
   @Override
   public void destroy() {
-    // Un-used, thus empty
   }
 
   @Override
   public void init(FilterConfig filterConfig) throws ServletException {
-    // Un-used, thus empty
   }
 }

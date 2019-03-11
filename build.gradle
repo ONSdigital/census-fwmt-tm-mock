@@ -99,8 +99,8 @@ dependencies {
     compile 'com.fasterxml.jackson.core:jackson-databind:2.9.7'
     
     compile 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.9.7'
-
-    compile 'com.github.joschi.jackson:jackson-datatype-threetenbp:2.8.4'
+    
+    compile 'com.github.joschi.jackson:jackson-datatype-threetenbp:2.6.4'
 
     compile 'org.json:json:20180813'
 

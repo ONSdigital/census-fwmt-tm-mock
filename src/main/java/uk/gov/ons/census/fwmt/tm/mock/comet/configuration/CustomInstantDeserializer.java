@@ -5,12 +5,12 @@ import com.fasterxml.jackson.core.JsonTokenId;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.datatype.threetenbp.DateTimeUtils;
 import com.fasterxml.jackson.datatype.threetenbp.DecimalUtils;
 import com.fasterxml.jackson.datatype.threetenbp.deser.ThreeTenDateTimeDeserializerBase;
 import com.fasterxml.jackson.datatype.threetenbp.function.BiFunction;
 import com.fasterxml.jackson.datatype.threetenbp.function.Function;
 import org.threeten.bp.DateTimeException;
-import org.threeten.bp.DateTimeUtils;
 import org.threeten.bp.Instant;
 import org.threeten.bp.OffsetDateTime;
 import org.threeten.bp.ZoneId;
@@ -30,6 +30,8 @@ import java.math.BigDecimal;
  */
 public class CustomInstantDeserializer<T extends Temporal>
     extends ThreeTenDateTimeDeserializerBase<T> {
+  private static final long serialVersionUID = 1L;
+
   public static final CustomInstantDeserializer<Instant> INSTANT = new CustomInstantDeserializer<Instant>(
       Instant.class, DateTimeFormatter.ISO_INSTANT,
       new Function<TemporalAccessor, Instant>() {
@@ -52,6 +54,7 @@ public class CustomInstantDeserializer<T extends Temporal>
       },
       null
   );
+
   public static final CustomInstantDeserializer<OffsetDateTime> OFFSET_DATE_TIME = new CustomInstantDeserializer<OffsetDateTime>(
       OffsetDateTime.class, DateTimeFormatter.ISO_OFFSET_DATE_TIME,
       new Function<TemporalAccessor, OffsetDateTime>() {
@@ -79,6 +82,7 @@ public class CustomInstantDeserializer<T extends Temporal>
         }
       }
   );
+
   public static final CustomInstantDeserializer<ZonedDateTime> ZONED_DATE_TIME = new CustomInstantDeserializer<ZonedDateTime>(
       ZonedDateTime.class, DateTimeFormatter.ISO_ZONED_DATE_TIME,
       new Function<TemporalAccessor, ZonedDateTime>() {
@@ -106,7 +110,7 @@ public class CustomInstantDeserializer<T extends Temporal>
         }
       }
   );
-  private static final long serialVersionUID = 1L;
+
   protected final Function<FromIntegerArguments, T> fromMilliseconds;
 
   protected final Function<FromDecimalArguments, T> fromNanoseconds;
@@ -195,15 +199,13 @@ public class CustomInstantDeserializer<T extends Temporal>
       }
       return value;
     }
-
-    default:
-      throw context.mappingException("Expected type float, integer, or string.");
     }
+    throw context.mappingException("Expected type float, integer, or string.");
   }
 
   private ZoneId getZone(DeserializationContext context) {
     // Instants are always in UTC, so don't waste compute cycles
-    return (_valueClass == Instant.class) ? null : DateTimeUtils.toZoneId(context.getTimeZone());
+    return (_valueClass == Instant.class) ? null : DateTimeUtils.timeZoneToZoneId(context.getTimeZone());
   }
 
   private static class FromIntegerArguments {
