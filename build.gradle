@@ -114,6 +114,10 @@ dependencies {
 
     compile 'javax.validation:validation-api:2.0.1.Final'
 
+    compile 'ma.glasnost.orika:orika-core:1.5.4'
+
+    compile 'ma.glasnost.orika:orika-eclipse-tools:1.5.4'
+    
     compile 'org.yaml:snakeyaml:1.23'
 
     testCompile 'junit:junit:4.12'

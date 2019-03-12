@@ -15,7 +15,7 @@ public class SwaggerDocumentationConfig {
     return new ApiInfoBuilder()
         .title("Mock Totalmobile Comet")
         .description("Mock Totalmobile Comet for use by the FWMTG")
-        .version("v1")
+        .version("v2")
         .build();
   }
 

@@ -1,6 +1,7 @@
 package uk.gov.ons.census.fwmt.tm.mock.comet.api;
 
 import io.swagger.annotations.ApiParam;
+import ma.glasnost.orika.MapperFacade;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,7 @@ import uk.gov.ons.census.fwmt.tm.mock.logging.MockMessageLogger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.util.UUID;
 
 @Controller
 public class CasesApiController implements CasesApi {
@@ -31,14 +33,17 @@ public class CasesApiController implements CasesApi {
   @Autowired
   private CaseManager caseManager;
 
-  public ResponseEntity<CaseRequest> casesByIdGet(
+  @Autowired
+  private MapperFacade mapperFacade;
+
+  public ResponseEntity<ModelCase> casesByIdGet(
       @ApiParam(value = "The Case identifier", required = true) @PathVariable("id") String id) {
     mockLogger.logEndpoint("CasesApiController", "casesByIdGet");
-    CaseRequest caseRequest = caseManager.getCase(id);
+    ModelCase caseRequest = caseManager.getCase(id);
     if (caseRequest != null) {
-      return new ResponseEntity<CaseRequest>(caseRequest, HttpStatus.ACCEPTED);
+      return new ResponseEntity<ModelCase>(caseRequest, HttpStatus.ACCEPTED);
     }else {
-      return new ResponseEntity<CaseRequest>(HttpStatus.NOT_FOUND);
+      return new ResponseEntity<ModelCase>(HttpStatus.NOT_FOUND);
     }
   }
 
@@ -67,7 +72,9 @@ public class CasesApiController implements CasesApi {
     mockLogger.logEndpoint("CasesApiController", "casesByIdPost");
     String accept = request.getHeader("Accept");
     log.info("Job Recreived: " + body.getReference(), " with accept: " + accept);
-    caseManager.addCase(body);
-    return new ResponseEntity<ModelCase>(HttpStatus.OK);
+    ModelCase mc = mapperFacade.map(body, ModelCase.class);
+    mc.setId(UUID.fromString(id));
+    caseManager.addCase(mc);
+    return new ResponseEntity<>(HttpStatus.OK);
   }
 }

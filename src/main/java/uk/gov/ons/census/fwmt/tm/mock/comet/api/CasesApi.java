@@ -33,7 +33,7 @@ public interface CasesApi {
   @RequestMapping(value = "/cases/{id}",
       produces = {"application/json"},
       method = RequestMethod.GET)
-  ResponseEntity<CaseRequest> casesByIdGet(
+  ResponseEntity<ModelCase> casesByIdGet(
       @ApiParam(value = "The Case identifier", required = true) @PathVariable("id") String id);
 
   @ApiOperation(value = "Remove the pause from a Case.", nickname = "casesByIdPauseDelete", notes = "", authorizations = {
