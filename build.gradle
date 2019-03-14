@@ -6,7 +6,7 @@ buildscript {
     repositories {
         mavenCentral()
         jcenter()
-        
+
     }
     dependencies {
         classpath 'org.springframework.boot:spring-boot-gradle-plugin:2.1.0.RELEASE'
@@ -24,6 +24,7 @@ plugins {
     id 'org.springframework.boot' version '2.1.0.RELEASE'
     id 'io.spring.dependency-management' version '1.0.6.RELEASE'
     id 'com.jfrog.artifactory' version '4.8.1'
+    id 'org.ajoberstar.grgit' version '3.0.0'
 }
 
 mainClassName = 'uk.gov.ons.census.fwmt.tm.mock.Application'
@@ -77,27 +78,38 @@ artifactoryPublish {
     publications('maven')
 }
 
+springBoot {
+    buildInfo {
+        properties {
+            additional = [
+                    'Git-Commit': grgit.head().getAbbreviatedId(8)
+            ]
+        }
+    }
+}
+
 dependencies {
+
     compile "uk.gov.ons.census.fwmt:census-fwmt-common:1.0.2-SNAPSHOT"
 
-    compile "org.springframework.boot:spring-boot-starter-web:${springBootVersion}"
-    compile "org.springframework.boot:spring-boot-starter-web-services:${springBootVersion}"
-    compile "org.springframework.boot:spring-boot-starter-actuator:${springBootVersion}"
-    compile("org.springframework.cloud:spring-cloud-spring-service-connector:${springCloudVersion}") {
+    compile "org.springframework.boot:spring-boot-starter-web"
+    compile "org.springframework.boot:spring-boot-starter-web-services"
+    compile "org.springframework.boot:spring-boot-starter-actuator"
+    compile("org.springframework.cloud:spring-cloud-spring-service-connector") {
         exclude module: 'log4j'
     }
-    compile("org.springframework.cloud:spring-cloud-cloudfoundry-connector:${springCloudVersion}") {
+    compile("org.springframework.cloud:spring-cloud-cloudfoundry-connector") {
         exclude module: 'log4j'
     }
 
-    testCompile("org.springframework.boot:spring-boot-starter-test:${springBootVersion}") {
+    testCompile("org.springframework.boot:spring-boot-starter-test") {
         exclude module: 'android-json'
     }
 
     compile 'org.apache.commons:commons-lang3:3.8.1'
 
     compile 'com.fasterxml.jackson.core:jackson-databind:2.9.7'
-    
+
     compile 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.9.7'
 
     compile 'com.github.joschi.jackson:jackson-datatype-threetenbp:2.8.4'
