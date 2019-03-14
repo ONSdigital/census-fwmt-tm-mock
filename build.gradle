@@ -27,18 +27,18 @@ plugins {
     id 'org.ajoberstar.grgit' version '3.0.0'
 }
 
-mainClassName = 'uk.gov.ons.fwmt.census.tm.mock.Application'
+mainClassName = 'uk.gov.ons.census.fwmt.tm.mock.Application'
 
-description = 'fwmt-census-tm-mocks'
-group = 'uk.gov.ons.fwmt'
+description = 'census-fwmt-tm-mocks'
+group = 'uk.gov.ons.census.fwmt'
 version = '3.0.1-SNAPSHOT'
 
 sourceCompatibility = 11
 targetCompatibility = 11
 
 jar {
-    group = 'uk.gov.ons.fwmt'
-    baseName = 'fwmt-census-tm-mock'
+    group = 'uk.gov.ons.census.fwmt'
+    baseName = 'census-fwmt-tm-mock'
     version = version
 }
 
@@ -66,7 +66,7 @@ publishing {
     publications {
         maven(MavenPublication) {
             groupId = group
-            artifactId = 'fwmt-census-tm-mock'
+            artifactId = 'census-fwmt-tm-mock'
             version = version
 
             from components.java
@@ -89,9 +89,8 @@ springBoot {
 }
 
 dependencies {
-    compile "uk.gov.ons.fwmt:fwmt-census-common:1.0.1-SNAPSHOT"
-    compile 'uk.gov.ons.fwmt:fwmt-gateway-common:0.0.8-RELEASE'
 
+    compile "uk.gov.ons.census.fwmt:census-fwmt-common:1.0.2-SNAPSHOT"
 
     compile "org.springframework.boot:spring-boot-starter-web"
     compile "org.springframework.boot:spring-boot-starter-web-services"
