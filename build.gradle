@@ -89,8 +89,7 @@ springBoot {
 }
 
 dependencies {
-
-    compile "uk.gov.ons.census.fwmt:census-fwmt-common:1.0.2-SNAPSHOT"
+    compile("uk.gov.ons.census.fwmt:census-fwmt-common:1.0.8-RELEASE")
 
     compile "org.springframework.boot:spring-boot-starter-web"
     compile "org.springframework.boot:spring-boot-starter-web-services"
@@ -111,8 +110,8 @@ dependencies {
     compile 'com.fasterxml.jackson.core:jackson-databind:2.9.7'
 
     compile 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.9.7'
-
-    compile 'com.github.joschi.jackson:jackson-datatype-threetenbp:2.8.4'
+    
+    compile 'com.github.joschi.jackson:jackson-datatype-threetenbp:2.6.4'
 
     compile 'org.json:json:20180813'
 
@@ -126,6 +125,10 @@ dependencies {
 
     compile 'javax.validation:validation-api:2.0.1.Final'
 
+    compile 'ma.glasnost.orika:orika-core:1.5.4'
+
+    compile 'ma.glasnost.orika:orika-eclipse-tools:1.5.4'
+    
     compile 'org.yaml:snakeyaml:1.23'
 
     testCompile 'junit:junit:4.12'

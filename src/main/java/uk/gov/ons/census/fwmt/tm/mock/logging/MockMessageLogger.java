@@ -89,7 +89,6 @@ public class MockMessageLogger {
   }
 
   // methods for retrieving
-
   public List<MockMessage> getAllMessages() {
     if (!logAllMessages) {
       return null;
