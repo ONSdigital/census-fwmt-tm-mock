@@ -39,4 +39,4 @@ rabbitmq:
 customisation:
   logging:
     logFlagType:
-      logAllMessages: true
+      logAllMessages: false
