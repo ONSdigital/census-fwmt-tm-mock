@@ -47,4 +47,14 @@ public class MockLoggerController {
     mockLogger.reset();
     caseManager.reset();
   }
+
+  @GetMapping(value = "enableRequestRecorder", produces = "application/json")
+  public void enableCaseManager() {
+    caseManager.enableCaseManager();
+  }
+
+  @GetMapping(value = "disableRequestRecorder", produces = "application/json")
+  public void disableCaseManager() {
+    caseManager.disableCaseManager();
+  }
 }
