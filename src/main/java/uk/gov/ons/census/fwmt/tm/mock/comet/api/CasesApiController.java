@@ -26,10 +26,10 @@ public class CasesApiController implements CasesApi {
 
   @Autowired
   private MockMessageLogger mockLogger;
-  
+
   @Autowired
   private HttpServletRequest request;
-  
+
   @Autowired
   private CaseManager caseManager;
 
@@ -41,29 +41,29 @@ public class CasesApiController implements CasesApi {
     mockLogger.logEndpoint("CasesApiController", "casesByIdGet");
     ModelCase caseRequest = caseManager.getCase(id);
     if (caseRequest != null) {
-      return new ResponseEntity<ModelCase>(caseRequest, HttpStatus.ACCEPTED);
-    }else {
-      return new ResponseEntity<ModelCase>(HttpStatus.NOT_FOUND);
+      return new ResponseEntity<>(caseRequest, HttpStatus.ACCEPTED);
+    } else {
+      return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
   }
 
   public ResponseEntity<Void> casesByIdPauseDelete(
       @ApiParam(value = "The Case identifier", required = true) @PathVariable("id") String id) {
     String accept = request.getHeader("Accept");
-    return new ResponseEntity<Void>(HttpStatus.NOT_IMPLEMENTED);
+    return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
   }
 
   public ResponseEntity<CasePause> casesByIdPauseGet(
       @ApiParam(value = "The Case identifier", required = true) @PathVariable("id") String id) {
     String accept = request.getHeader("Accept");
-    return new ResponseEntity<CasePause>(HttpStatus.NOT_IMPLEMENTED);
+    return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
   }
 
   public ResponseEntity<CasePause> casesByIdPausePut(
       @ApiParam(value = "The Case identifier.", required = true) @PathVariable("id") String id,
       @ApiParam(value = "Pause to apply to the Case.") @Valid @RequestBody Object body) {
     String accept = request.getHeader("Accept");
-    return new ResponseEntity<CasePause>(HttpStatus.NOT_IMPLEMENTED);
+    return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
   }
 
   public ResponseEntity<ModelCase> casesByIdPut(
