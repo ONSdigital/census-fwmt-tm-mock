@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
 import uk.gov.ons.census.fwmt.common.data.modelcase.CasePause;
+import uk.gov.ons.census.fwmt.common.data.modelcase.CasePauseRequest;
 import uk.gov.ons.census.fwmt.common.data.modelcase.CaseRequest;
 import uk.gov.ons.census.fwmt.common.data.modelcase.ModelCase;
 import uk.gov.ons.census.fwmt.tm.mock.comet.api.CasesApi;
@@ -55,7 +56,7 @@ public class CasesApiControllerIntegrationTest {
   @Test
   public void casesByIdPausePutTest() {
     String id = "id_example";
-    Object body = null;
+    CasePauseRequest body = new CasePauseRequest();
     ResponseEntity<CasePause> responseEntity = casesApi.casesByIdPausePut(id, body);
     assertEquals(HttpStatus.NOT_IMPLEMENTED, responseEntity.getStatusCode());
   }

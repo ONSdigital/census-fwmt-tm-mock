@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import uk.gov.ons.census.fwmt.common.data.modelcase.CasePause;
+import uk.gov.ons.census.fwmt.common.data.modelcase.CasePauseRequest;
 import uk.gov.ons.census.fwmt.common.data.modelcase.CaseRequest;
 import uk.gov.ons.census.fwmt.common.data.modelcase.ModelCase;
 
@@ -77,7 +78,7 @@ public interface CasesApi {
       method = RequestMethod.PUT)
   ResponseEntity<CasePause> casesByIdPausePut(
       @ApiParam(value = "The Case identifier.", required = true) @PathVariable("id") String id,
-      @ApiParam(value = "Pause to apply to the Case.") @Valid @RequestBody Object body);
+      @ApiParam(value = "Pause to apply to the Case.") @Valid @RequestBody CasePauseRequest body);
 
   @ApiOperation(value = "Create or update a Case.", nickname = "casesByIdPut", notes = "", response = ModelCase.class, authorizations = {
       @Authorization(value = "Client Credentials", scopes = {
