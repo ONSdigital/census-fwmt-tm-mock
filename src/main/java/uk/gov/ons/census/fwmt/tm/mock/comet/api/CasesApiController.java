@@ -11,8 +11,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import uk.gov.ons.census.fwmt.common.data.modelcase.CasePause;
+import uk.gov.ons.census.fwmt.common.data.modelcase.CasePauseRequest;
 import uk.gov.ons.census.fwmt.common.data.modelcase.CaseRequest;
 import uk.gov.ons.census.fwmt.common.data.modelcase.ModelCase;
+import uk.gov.ons.census.fwmt.tm.mock.comet.api.managers.CaseManager;
+import uk.gov.ons.census.fwmt.tm.mock.comet.api.managers.PauseManager;
 import uk.gov.ons.census.fwmt.tm.mock.logging.MockMessageLogger;
 
 import javax.servlet.http.HttpServletRequest;
@@ -34,6 +37,9 @@ public class CasesApiController implements CasesApi {
   private CaseManager caseManager;
 
   @Autowired
+  private PauseManager pauseManager;
+
+  @Autowired
   private MapperFacade mapperFacade;
 
   public ResponseEntity<ModelCase> casesByIdGet(
@@ -41,10 +47,45 @@ public class CasesApiController implements CasesApi {
     mockLogger.logEndpoint("CasesApiController", "casesByIdGet");
     ModelCase caseRequest = caseManager.getCase(id);
     if (caseRequest != null) {
-      return new ResponseEntity<ModelCase>(caseRequest, HttpStatus.ACCEPTED);
+      return new ResponseEntity<>(caseRequest, HttpStatus.ACCEPTED);
     }else {
-      return new ResponseEntity<ModelCase>(HttpStatus.NOT_FOUND);
+      return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
+  }
+
+  public ResponseEntity<ModelCase> casesByIdPut(
+      @ApiParam(value = "The Case identifier", required = true) @PathVariable("id") String id,
+      @ApiParam(value = "Case") @Valid @RequestBody CaseRequest body) {
+    mockLogger.logEndpoint("CasesApiController", "casesByIdPut");
+    String accept = request.getHeader("Accept");
+    log.info("Job Received: " + body.getReference(), " with accept: " + accept);
+    ModelCase modelCase = mapperFacade.map(body, ModelCase.class);
+    modelCase.setId(UUID.fromString(id));
+    caseManager.addCase(modelCase);
+    return new ResponseEntity<>(HttpStatus.OK);
+  }
+
+  public ResponseEntity<CasePause> casesByIdPauseGet(
+      @ApiParam(value = "The Case identifier", required = true) @PathVariable("id") String id) {
+    mockLogger.logEndpoint("CasesApiController", "casesByIdPauseGet");
+    CasePause casePause = pauseManager.getPause(id);
+    if (casePause != null) {
+      return new ResponseEntity<>(casePause, HttpStatus.ACCEPTED);
+    } else {
+      return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
+  }
+
+  public ResponseEntity<CasePause> casesByIdPausePut(
+      @ApiParam(value = "The Case identifier.", required = true) @PathVariable("id") String id,
+      @ApiParam(value = "Pause to apply to the Case.") @Valid @RequestBody CasePauseRequest body) {
+    mockLogger.logEndpoint("CasesApiController", "casesByIdPausePut");
+    String accept = request.getHeader("Accept");
+    log.info("Job paused: " + id, " with accept: " + accept);
+    CasePause casePause = mapperFacade.map(body, CasePause.class);
+    pauseManager.addPause(id, casePause);
+    return new ResponseEntity<>(HttpStatus.OK);
   }
 
   public ResponseEntity<Void> casesByIdPauseDelete(
@@ -53,28 +94,4 @@ public class CasesApiController implements CasesApi {
     return new ResponseEntity<Void>(HttpStatus.NOT_IMPLEMENTED);
   }
 
-  public ResponseEntity<CasePause> casesByIdPauseGet(
-      @ApiParam(value = "The Case identifier", required = true) @PathVariable("id") String id) {
-    String accept = request.getHeader("Accept");
-    return new ResponseEntity<CasePause>(HttpStatus.NOT_IMPLEMENTED);
-  }
-
-  public ResponseEntity<CasePause> casesByIdPausePut(
-      @ApiParam(value = "The Case identifier.", required = true) @PathVariable("id") String id,
-      @ApiParam(value = "Pause to apply to the Case.") @Valid @RequestBody Object body) {
-    String accept = request.getHeader("Accept");
-    return new ResponseEntity<CasePause>(HttpStatus.NOT_IMPLEMENTED);
-  }
-
-  public ResponseEntity<ModelCase> casesByIdPut(
-      @ApiParam(value = "The Case identifier", required = true) @PathVariable("id") String id,
-      @ApiParam(value = "Case") @Valid @RequestBody CaseRequest body) {
-    mockLogger.logEndpoint("CasesApiController", "casesByIdPost");
-    String accept = request.getHeader("Accept");
-    log.info("Job Recreived: " + body.getReference(), " with accept: " + accept);
-    ModelCase mc = mapperFacade.map(body, ModelCase.class);
-    mc.setId(UUID.fromString(id));
-    caseManager.addCase(mc);
-    return new ResponseEntity<>(HttpStatus.OK);
-  }
 }
