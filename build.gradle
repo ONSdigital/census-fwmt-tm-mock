@@ -31,7 +31,7 @@ mainClassName = 'uk.gov.ons.census.fwmt.tm.mock.Application'
 
 description = 'census-fwmt-tm-mocks'
 group = 'uk.gov.ons.census.fwmt'
-version = '3.0.6-SNAPSHOT'
+version = '3.0.7-SNAPSHOT'
 
 sourceCompatibility = 11
 targetCompatibility = 11
