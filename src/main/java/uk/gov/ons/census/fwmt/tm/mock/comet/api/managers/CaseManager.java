@@ -1,4 +1,4 @@
-package uk.gov.ons.census.fwmt.tm.mock.comet.api;
+package uk.gov.ons.census.fwmt.tm.mock.comet.api.managers;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -13,6 +13,14 @@ public class CaseManager {
 
   @Value("${customisation.logging.logFlagType.logAllMessages}")
   private boolean logAllMessages;
+
+  public void enableCaseManager() {
+    logAllMessages = true;
+  }
+
+  public void disableCaseManager() {
+    logAllMessages = false;
+  }
 
   public void addCase(ModelCase modelCase) {
     if (logAllMessages) {

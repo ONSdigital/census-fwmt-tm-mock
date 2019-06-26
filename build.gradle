@@ -31,7 +31,7 @@ mainClassName = 'uk.gov.ons.census.fwmt.tm.mock.Application'
 
 description = 'census-fwmt-tm-mocks'
 group = 'uk.gov.ons.census.fwmt'
-version = '3.0.4-SNAPSHOT'
+version = '3.0.14-SNAPSHOT'
 
 sourceCompatibility = 11
 targetCompatibility = 11
@@ -89,8 +89,8 @@ springBoot {
 }
 
 dependencies {
-    compile("uk.gov.ons.census.fwmt:census-fwmt-common:1.0.8-RELEASE")
-
+    compile('uk.gov.ons.census.fwmt:census-fwmt-common:1.0.13-RELEASE')
+    
     compile "org.springframework.boot:spring-boot-starter-web"
     compile "org.springframework.boot:spring-boot-starter-web-services"
     compile "org.springframework.boot:spring-boot-starter-actuator"

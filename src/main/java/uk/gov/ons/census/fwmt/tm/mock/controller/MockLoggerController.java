@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import uk.gov.ons.census.fwmt.tm.mock.logging.MockMessageLogger;
-import uk.gov.ons.census.fwmt.tm.mock.comet.api.CaseManager;
+import uk.gov.ons.census.fwmt.tm.mock.comet.api.managers.CaseManager;
 import uk.gov.ons.census.fwmt.tm.mock.logging.MockMessage;
 
 import java.util.List;
@@ -46,5 +46,15 @@ public class MockLoggerController {
   public void reset() {
     mockLogger.reset();
     caseManager.reset();
+  }
+
+  @GetMapping(value = "enableRequestRecorder", produces = "application/json")
+  public void enableCaseManager() {
+    caseManager.enableCaseManager();
+  }
+
+  @GetMapping(value = "disableRequestRecorder", produces = "application/json")
+  public void disableCaseManager() {
+    caseManager.disableCaseManager();
   }
 }
