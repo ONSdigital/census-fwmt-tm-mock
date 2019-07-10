@@ -1,11 +1,8 @@
 package uk.gov.ons.census.fwmt.tm.mock.controller;
 
-import com.rabbitmq.client.AMQP.BasicProperties;
-import com.rabbitmq.client.Channel;
-import com.rabbitmq.client.Connection;
-import com.rabbitmq.client.ConnectionFactory;
-import com.rabbitmq.client.GetResponse;
-import lombok.extern.slf4j.Slf4j;
+import java.io.IOException;
+import java.util.concurrent.TimeoutException;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -17,8 +14,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.io.IOException;
-import java.util.concurrent.TimeoutException;
+import com.rabbitmq.client.AMQP.BasicProperties;
+import com.rabbitmq.client.Channel;
+import com.rabbitmq.client.Connection;
+import com.rabbitmq.client.ConnectionFactory;
+import com.rabbitmq.client.DeliverCallback;
+import com.rabbitmq.client.Delivery;
+import com.rabbitmq.client.GetResponse;
+
+import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @RestController
@@ -48,9 +52,41 @@ public class QueueController {
       ConnectionFactory factory = getRabbitMQConnectionFactory();
       connection = factory.newConnection();
       channel = connection.createChannel();
-
+      
       GetResponse response = channel.basicGet(qname, true);
       if (response == null) {
+        return ResponseEntity.notFound().build();
+      } else {
+        byte[] body = response.getBody();
+        log.info("recieved msg from Queue: " + qname);
+        return ResponseEntity.ok(new String(body));
+      }
+    } catch (IOException | TimeoutException e) {
+      log.error("Issue getting message from {} queue.", e, qname);
+      return ResponseEntity.badRequest().build();
+    } finally {
+      try {
+        if (channel != null)
+          channel.close();
+        if (connection != null)
+          connection.close();
+      } catch (Exception e) {
+        log.error("Issue closing RabbitMQ connections", e);
+      }
+    }
+  }
+
+  @GetMapping(value = "/messagewithrouting", produces = "application/json")
+  public ResponseEntity<String> getRabbitMessageOffQueue(@RequestParam("qname") String qname, @RequestParam("routingKey") String routingKey) {
+    Connection connection = null;
+    Channel channel = null;
+    try {
+      ConnectionFactory factory = getRabbitMQConnectionFactory();
+      connection = factory.newConnection();
+      channel = connection.createChannel();
+      
+      GetResponse response = channel.basicGet(qname, true);
+      if (response == null || !response.getEnvelope().getRoutingKey().equals(routingKey)) {
         return ResponseEntity.notFound().build();
       } else {
         byte[] body = response.getBody();
