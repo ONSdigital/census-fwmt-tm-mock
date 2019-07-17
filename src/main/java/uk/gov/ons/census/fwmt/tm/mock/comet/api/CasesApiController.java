@@ -29,10 +29,10 @@ public class CasesApiController implements CasesApi {
 
   @Autowired
   private MockMessageLogger mockLogger;
-  
+
   @Autowired
   private HttpServletRequest request;
-  
+
   @Autowired
   private CaseManager caseManager;
 
@@ -48,7 +48,7 @@ public class CasesApiController implements CasesApi {
     ModelCase caseRequest = caseManager.getCase(id);
     if (caseRequest != null) {
       return new ResponseEntity<>(caseRequest, HttpStatus.ACCEPTED);
-    }else {
+    } else {
       return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
   }
@@ -74,7 +74,6 @@ public class CasesApiController implements CasesApi {
     } else {
       return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
-
   }
 
   public ResponseEntity<CasePause> casesByIdPausePut(
