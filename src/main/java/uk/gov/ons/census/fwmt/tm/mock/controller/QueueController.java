@@ -121,7 +121,7 @@ public class QueueController {
       log.info("recieved msg count from Queue: " + qname);
       return ResponseEntity.ok(messageCount);
     } catch (IOException | TimeoutException e) {
-      log.error("Issue getting message count from {} queue.", e, qname);
+      log.error("Issue getting message count from {} queue.", qname, e);
       return ResponseEntity.badRequest().build();
     } finally {
       try {
