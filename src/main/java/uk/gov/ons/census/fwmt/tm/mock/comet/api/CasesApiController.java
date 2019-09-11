@@ -1,7 +1,10 @@
 package uk.gov.ons.census.fwmt.tm.mock.comet.api;
 
-import io.swagger.annotations.ApiParam;
-import ma.glasnost.orika.MapperFacade;
+import java.util.UUID;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +13,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
+
+import io.swagger.annotations.ApiParam;
+import ma.glasnost.orika.MapperFacade;
 import uk.gov.ons.census.fwmt.common.data.modelcase.CasePause;
 import uk.gov.ons.census.fwmt.common.data.modelcase.CasePauseRequest;
 import uk.gov.ons.census.fwmt.common.data.modelcase.CaseRequest;
@@ -17,10 +23,6 @@ import uk.gov.ons.census.fwmt.common.data.modelcase.ModelCase;
 import uk.gov.ons.census.fwmt.tm.mock.comet.api.managers.CaseManager;
 import uk.gov.ons.census.fwmt.tm.mock.comet.api.managers.PauseManager;
 import uk.gov.ons.census.fwmt.tm.mock.logging.MockMessageLogger;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.validation.Valid;
-import java.util.UUID;
 
 @Controller
 public class CasesApiController implements CasesApi {
@@ -47,8 +49,10 @@ public class CasesApiController implements CasesApi {
     mockLogger.logEndpoint("CasesApiController", "casesByIdGet");
     ModelCase caseRequest = caseManager.getCase(id);
     if (caseRequest != null) {
+      log.info("GET  CaseId: {} : FOUND", id);
       return new ResponseEntity<>(caseRequest, HttpStatus.ACCEPTED);
     } else {
+      log.info("GET  CaseId: {} : NOT FOUND", id);
       return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
   }
@@ -62,6 +66,12 @@ public class CasesApiController implements CasesApi {
     ModelCase modelCase = mapperFacade.map(body, ModelCase.class);
     modelCase.setId(UUID.fromString(id));
     caseManager.addCase(modelCase);
+    log.info("POST CaseId: {} : ADDED", id);
+    log.info("POST CaseId: {} : 'Ghost LEDR' Investigation", id);
+    log.info("============================================");
+    casesByIdGet(id);
+    log.info("============================================");
+    log.info("============================================");
     return new ResponseEntity<>(HttpStatus.OK);
   }
 
