@@ -6,8 +6,15 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.stereotype.Component;
+
+import lombok.extern.slf4j.Slf4j;
+
 import java.io.IOException;
 
+@Slf4j
+@Component
 public class ApiOriginFilter implements javax.servlet.Filter {
   @Override
   public void doFilter(ServletRequest request, ServletResponse response,
