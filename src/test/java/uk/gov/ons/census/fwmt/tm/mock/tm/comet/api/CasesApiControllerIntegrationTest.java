@@ -10,7 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
 import uk.gov.ons.census.fwmt.common.data.modelcase.CasePause;
 import uk.gov.ons.census.fwmt.common.data.modelcase.CasePauseRequest;
-import uk.gov.ons.census.fwmt.common.data.modelcase.CaseRequest;
+import uk.gov.ons.census.fwmt.common.data.modelcase.CaseCreateRequest;
 import uk.gov.ons.census.fwmt.common.data.modelcase.ModelCase;
 import uk.gov.ons.census.fwmt.tm.mock.comet.api.CasesApi;
 
@@ -34,7 +34,7 @@ public class CasesApiControllerIntegrationTest {
   @Test
   public void casesByIdPostTest() {
     String id = "id_example";
-    CaseRequest body = new CaseRequest();
+    CaseCreateRequest body = new CaseCreateRequest();
     ResponseEntity<ModelCase> responseEntity = casesApi.casesByIdPut(id, body);
     assertEquals(HttpStatus.NOT_IMPLEMENTED, responseEntity.getStatusCode());
   }
@@ -64,7 +64,7 @@ public class CasesApiControllerIntegrationTest {
   @Test
   public void casesByIdPutTest() {
     String id = "id_example";
-    CaseRequest body = new CaseRequest();
+    CaseCreateRequest body = new CaseCreateRequest();
     ResponseEntity<ModelCase> responseEntity = casesApi.casesByIdPut(id, body);
     assertEquals(HttpStatus.NOT_IMPLEMENTED, responseEntity.getStatusCode());
   }

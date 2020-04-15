@@ -16,9 +16,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import io.swagger.annotations.ApiParam;
 import ma.glasnost.orika.MapperFacade;
+import uk.gov.ons.census.fwmt.common.data.modelcase.CaseCreateRequest;
 import uk.gov.ons.census.fwmt.common.data.modelcase.CasePause;
 import uk.gov.ons.census.fwmt.common.data.modelcase.CasePauseRequest;
-import uk.gov.ons.census.fwmt.common.data.modelcase.CaseRequest;
 import uk.gov.ons.census.fwmt.common.data.modelcase.ModelCase;
 import uk.gov.ons.census.fwmt.tm.mock.comet.api.managers.CaseManager;
 import uk.gov.ons.census.fwmt.tm.mock.comet.api.managers.PauseManager;
@@ -59,7 +59,7 @@ public class CasesApiController implements CasesApi {
 
   public ResponseEntity<ModelCase> casesByIdPut(
       @ApiParam(value = "The Case identifier", required = true) @PathVariable("id") String id,
-      @ApiParam(value = "Case") @Valid @RequestBody CaseRequest body) {
+      @ApiParam(value = "Case") @Valid @RequestBody CaseCreateRequest body) {
     mockLogger.logEndpoint("CasesApiController", "casesByIdPut");
     String accept = request.getHeader("Accept");
     log.info("Job Received: " + body.getReference(), " with accept: " + accept);
