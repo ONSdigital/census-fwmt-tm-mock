@@ -103,7 +103,7 @@ springBoot {
 }
 
 dependencies {
-    compile 'uk.gov.ons.census.fwmt:census-fwmt-common:1.1.14-RELEASE'
+    compile 'uk.gov.ons.census.fwmt:census-fwmt-common:1.1.17-SNAPSHOT-MOCK-REFACTOR'
 
     compile 'org.springframework.boot:spring-boot-starter-web'
     compile 'org.springframework.boot:spring-boot-starter-web-services'
