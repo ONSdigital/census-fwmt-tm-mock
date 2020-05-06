@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import uk.gov.ons.census.fwmt.common.data.tm.*;
 
 import javax.validation.Valid;
+import java.util.Optional;
 
 @Api(value = "cases")
 public interface CasesApi {
@@ -30,7 +31,9 @@ public interface CasesApi {
   @RequestMapping(value = "/cases/{id}", produces = {"application/json"}, method = RequestMethod.GET)
   ResponseEntity<Case> getCase(
       @ApiParam(value = "The Case identifier.", required = true) @PathVariable("id") String id,
-      @ApiParam(value = "Additional objects to include.", allowableValues = "CaseOutcomes, OutputArea, AccessInfo, DistributedToOfficer, AllocatedTo, all") @PathVariable("include") String include);
+      @ApiParam(value = "Additional objects to include.",
+          allowableValues = "CaseOutcomes, OutputArea, AccessInfo, DistributedToOfficer, AllocatedTo, all")
+      @PathVariable("include") Optional <String> include);
 
   // GET Cases
   @ApiOperation(value = "Get a Case.", nickname = "getCases", response = FetchResponse.class, authorizations = {
@@ -38,13 +41,18 @@ public interface CasesApi {
       @Authorization(value = "Implicit", scopes = {@AuthorizationScope(scope = "", description = "")})
   }, tags = {})
   @ApiResponses(value = {@ApiResponse(code = 200, message = "Success.", response = FetchResponse.class)})
-  @RequestMapping(value = "/cases/{id}", produces = {"application/json"}, method = RequestMethod.GET)
+  @RequestMapping(value = "/cases", produces = {"application/json"}, method = RequestMethod.GET)
   ResponseEntity<FetchResponse> getCases(
-      @ApiParam(value = "The Case identifier.", allowableValues = "CoordCode, GeneralSearch, RequiredOfficer, CaseState") @PathVariable("id") String filter,
-      @ApiParam(value = "Additional objects to include.", allowableValues = "CaseOutcomes, OutputArea, AccessInfo, DistributedToOfficer, AllocatedTo, all") @PathVariable("include") String include,
-      @ApiParam(value = "Zero-based page number.") @PathVariable("id") int pageNo,
-      @ApiParam(value = "Maximum results per page.") @PathVariable("id") int pageSize,
-      @ApiParam(value = "Ordering of returned results.", allowableValues = "Reference, Address, OutputArea, VisitCount") @PathVariable("id") String order);
+      @ApiParam(value = "The Case identifier.",
+          allowableValues = "CoordCode, GeneralSearch, RequiredOfficer, CaseState")
+      @PathVariable("filter") String filter,
+      @ApiParam(value = "Additional objects to include.",
+          allowableValues = "CaseOutcomes, OutputArea, AccessInfo, DistributedToOfficer, AllocatedTo, all")
+      @PathVariable("include") String include,
+      @ApiParam(value = "Zero-based page number.") @PathVariable("pageNo") int pageNo,
+      @ApiParam(value = "Maximum results per page.") @PathVariable("pageSize") int pageSize,
+      @ApiParam(value = "Ordering of returned results.", allowableValues = "Reference, Address, OutputArea, VisitCount")
+      @PathVariable("order") String order);
 
   // GET Case Pause
   @ApiOperation(value = "Get the pause for a Case.", nickname = "getCasePause", notes = "", response = CasePause.class, authorizations = {
@@ -82,7 +90,7 @@ public interface CasesApi {
       @ApiResponse(code = 200, message = "Success.", response = CeCase.class),
       @ApiResponse(code = 400, message = "Bad Request."),
       @ApiResponse(code = 404, message = "Not Found.")})
-  @RequestMapping(value = "/cases/{id}",
+  @RequestMapping(value = "/cases/{id}/cedetails",
       produces = {"application/json"},
       consumes = {"application/json-patch+json", "application/json", "text/json", "application/_*+json"},
       method = RequestMethod.PATCH)
@@ -113,7 +121,7 @@ public interface CasesApi {
       @ApiResponse(code = 404, message = "Case does not exist.")})
   @RequestMapping(value = "/cases/{id}/reopen",
       consumes = {"application/json-patch+json", "application/json", "text/json", "application/_*+json"},
-      method = RequestMethod.PATCH)
+      method = RequestMethod.POST)
   ResponseEntity<Void> reopenCase(
       @ApiParam(value = "The Case identifier.", required = true) @PathVariable("id") String id,
       @ApiParam(value = "Re-open Case Request.") @Valid @RequestBody ReopenCaseRequest request);
@@ -145,5 +153,4 @@ public interface CasesApi {
   @RequestMapping(value = "/cases/{id}/pause", method = RequestMethod.DELETE)
   ResponseEntity<Void> deleteCasePause(
       @ApiParam(value = "The Case identifier.", required = true) @PathVariable("id") String id);
-
 }
