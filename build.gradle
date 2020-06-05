@@ -104,7 +104,7 @@ springBoot {
 }
 
 dependencies {
-    compile('uk.gov.ons.census.fwmt:census-fwmt-common:1.0.23-RELEASE')
+    compile('uk.gov.ons.census.fwmt:census-fwmt-common:1.0.22-RELEASE')
 
     compile 'org.springframework.boot:spring-boot-starter-web'
     compile 'org.springframework.boot:spring-boot-starter-web-services'
