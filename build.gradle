@@ -73,12 +73,15 @@ repositories {
 //}
 
 artifactory {
-    contextUrl = System.getenv('ARTIFACTORY_URL')
+    contextUrl = 'https://ons.jfrog.io/ons/'
     publish {
         repository {
-            repoKey = 'libs-snapshot-local'
-            username = System.getenv('ARTIFACTORY_USERNAME')
-            password = System.getenv('ARTIFACTORY_PASSWORD')
+            repoKey = 'libs-releases-local'
+            username = "${artifactory_user}"
+            password = "${artifactory_password}"
+        }
+        defaults {
+            publishBuildInfo = false
         }
     }
 }
