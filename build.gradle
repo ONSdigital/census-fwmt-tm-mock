@@ -62,27 +62,17 @@ repositories {
     }
 
     mavenCentral()
+    maven { url 'https://oss.sonatype.org/content/repositories/libs-snapshot' }
+    maven { url 'http://repo.maven.apache.org/maven2' }
 }
 
-//repositories {
-//    mavenLocal()
-//    mavenCentral()
-//    maven { url 'http://artifactory-sdc.onsdigital.uk/artifactory/libs-release' }
-//    maven { url 'http://artifactory-sdc.onsdigital.uk/artifactory/libs-snapshot' }
-//    maven { url 'https://oss.sonatype.org/content/repositories/libs-snapshot' }
-//    maven { url 'http://repo.maven.apache.org/maven2' }
-//}
-
 artifactory {
-    contextUrl = 'https://ons.jfrog.io/ons/'
+    contextUrl = System.getenv('ARTIFACTORY_URL')
     publish {
         repository {
-            repoKey = 'libs-releases-local'
-            username = "${artifactory_user}"
-            password = "${artifactory_password}"
-        }
-        defaults {
-            publishBuildInfo = false
+            repoKey = 'libs-snapshot-local'
+            username = System.getenv('ARTIFACTORY_USERNAME')
+            password = System.getenv('ARTIFACTORY_PASSWORD')
         }
     }
 }
@@ -116,17 +106,17 @@ springBoot {
 dependencies {
     compile('uk.gov.ons.census.fwmt:census-fwmt-common:1.0.23-RELEASE')
 
-    compile "org.springframework.boot:spring-boot-starter-web"
-    compile "org.springframework.boot:spring-boot-starter-web-services"
-    compile "org.springframework.boot:spring-boot-starter-actuator"
-    compile("org.springframework.cloud:spring-cloud-spring-service-connector") {
+    compile 'org.springframework.boot:spring-boot-starter-web'
+    compile 'org.springframework.boot:spring-boot-starter-web-services'
+    compile 'org.springframework.boot:spring-boot-starter-actuator'
+    compile('org.springframework.cloud:spring-cloud-spring-service-connector') {
         exclude module: 'log4j'
     }
-    compile("org.springframework.cloud:spring-cloud-cloudfoundry-connector") {
+    compile('org.springframework.cloud:spring-cloud-cloudfoundry-connector') {
         exclude module: 'log4j'
     }
 
-    testCompile("org.springframework.boot:spring-boot-starter-test") {
+    testCompile('org.springframework.boot:spring-boot-starter-test') {
         exclude module: 'android-json'
     }
 
