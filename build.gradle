@@ -1,16 +1,18 @@
 buildscript {
     ext {
-        springCloudVersion = '2.0.4.RELEASE'
-        springBootVersion = '2.1.1.RELEASE'
+        springVersion = '5.2.3.RELEASE'
+        springBootVersion = '2.2.4.RELEASE'
     }
+
     repositories {
         mavenCentral()
         jcenter()
-
     }
+
     dependencies {
-        classpath 'org.springframework.boot:spring-boot-gradle-plugin:2.1.0.RELEASE'
-        classpath 'org.jfrog.buildinfo:build-info-extractor-gradle:4.7.2'
+        classpath "org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}"
+        classpath 'org.jfrog.buildinfo:build-info-extractor-gradle:latest.release'
+        classpath 'org.ajoberstar:gradle-git:1.4.2'
     }
 }
 
@@ -23,7 +25,7 @@ plugins {
     id 'application'
     id 'org.springframework.boot' version '2.1.0.RELEASE'
     id 'io.spring.dependency-management' version '1.0.6.RELEASE'
-    id 'com.jfrog.artifactory' version '4.8.1'
+    id 'com.jfrog.artifactory' version '4.13.0'
     id 'org.ajoberstar.grgit' version '3.0.0'
 }
 
@@ -44,20 +46,34 @@ jar {
 
 repositories {
     mavenLocal()
+
+    maven {
+        url 'https://ons.jfrog.io/ons/libs-releases-virtual'
+        credentials {
+            username "${artifactory_user}"
+            password "${artifactory_password}"
+        }
+    }
+    maven {
+        url 'https://ons.jfrog.io/ons/libs-snapshots-virtual'
+        credentials {
+            username "${artifactory_user}"
+            password "${artifactory_password}"
+        }
+    }
     mavenCentral()
-    maven { url 'http://artifactory-sdc.onsdigital.uk/artifactory/libs-release' }
-    maven { url 'http://artifactory-sdc.onsdigital.uk/artifactory/libs-snapshot' }
-    maven { url 'https://oss.sonatype.org/content/repositories/libs-snapshot' }
-    maven { url 'http://repo.maven.apache.org/maven2' }
 }
 
 artifactory {
-    contextUrl = System.getenv('ARTIFACTORY_URL')
+    contextUrl = 'https://ons.jfrog.io/ons/'
     publish {
         repository {
-            repoKey = 'libs-snapshot-local'
-            username = System.getenv('ARTIFACTORY_USERNAME')
-            password = System.getenv('ARTIFACTORY_PASSWORD')
+            repoKey = 'libs-releases-local'
+            username = "${artifactory_user}"
+            password = "${artifactory_password}"
+        }
+        defaults {
+            publishBuildInfo = false
         }
     }
 }
@@ -89,19 +105,19 @@ springBoot {
 }
 
 dependencies {
-    compile('uk.gov.ons.census.fwmt:census-fwmt-common:1.0.46-RELEASE')
-    
-    compile "org.springframework.boot:spring-boot-starter-web"
-    compile "org.springframework.boot:spring-boot-starter-web-services"
-    compile "org.springframework.boot:spring-boot-starter-actuator"
-    compile("org.springframework.cloud:spring-cloud-spring-service-connector") {
+    compile 'uk.gov.ons.census.fwmt:census-fwmt-common:1.1.23-RELEASE'
+
+    compile 'org.springframework.boot:spring-boot-starter-web'
+    compile 'org.springframework.boot:spring-boot-starter-web-services'
+    compile 'org.springframework.boot:spring-boot-starter-actuator'
+    compile('org.springframework.cloud:spring-cloud-spring-service-connector') {
         exclude module: 'log4j'
     }
-    compile("org.springframework.cloud:spring-cloud-cloudfoundry-connector") {
+    compile('org.springframework.cloud:spring-cloud-cloudfoundry-connector') {
         exclude module: 'log4j'
     }
 
-    testCompile("org.springframework.boot:spring-boot-starter-test") {
+    testCompile('org.springframework.boot:spring-boot-starter-test') {
         exclude module: 'android-json'
     }
 
