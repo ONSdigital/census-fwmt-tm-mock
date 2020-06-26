@@ -88,7 +88,15 @@ public class CasesApiController implements CasesApi {
 
   @Override
   public ResponseEntity<CeCase> patchCeCaseDetails(String id, @Valid CeCasePatchRequest request) {
-    return null;
+    mockLogger.logEndpoint("CasesApiController", "patchCeCaseDetails");
+    log.info("Update Received: " + id);
+    log.info("PATCH CaseId: {} : Updated", id);
+    log.info("POST CaseId: {} : 'Ghost FWMT' Investigation", id);
+    log.info("============================================");
+    getCase(id, null);
+    log.info("============================================");
+    log.info("============================================");
+    return new ResponseEntity<>(HttpStatus.OK);
   }
 
   @Override
