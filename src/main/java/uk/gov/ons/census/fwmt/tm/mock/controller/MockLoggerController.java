@@ -42,6 +42,7 @@ public class MockLoggerController {
   @GetMapping(value = "getCount", produces = "application/json")
   public int getJobCount() {
     return mockLogger.getJobCount();
+
   }
 
   @GetMapping(value = "faultCount", produces = "application/json")
