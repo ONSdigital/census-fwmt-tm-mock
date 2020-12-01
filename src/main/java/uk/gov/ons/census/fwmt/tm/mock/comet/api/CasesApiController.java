@@ -14,9 +14,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 
 import ma.glasnost.orika.MapperFacade;
+import uk.gov.ons.census.fwmt.common.data.nc.CaseDetailsDTO;
 import uk.gov.ons.census.fwmt.common.data.tm.*;
 import uk.gov.ons.census.fwmt.tm.mock.comet.api.managers.CaseManager;
 import uk.gov.ons.census.fwmt.tm.mock.comet.api.managers.PauseManager;
+import uk.gov.ons.census.fwmt.tm.mock.comet.api.managers.RmCaseManager;
 import uk.gov.ons.census.fwmt.tm.mock.logging.MockMessageLogger;
 
 @Controller
@@ -35,6 +37,9 @@ public class CasesApiController implements CasesApi {
 
   @Autowired
   private PauseManager pauseManager;
+
+  @Autowired
+  private RmCaseManager rmCaseManager;
 
   @Autowired
   private MapperFacade mapperFacade;
@@ -122,6 +127,36 @@ public class CasesApiController implements CasesApi {
   @Override
   public ResponseEntity<Void> deleteCasePause(String id) {
     String accept = request.getHeader("Accept");
+    return new ResponseEntity<>(HttpStatus.OK);
+  }
+
+  @Override
+  public ResponseEntity<CaseDetailsDTO> getRmRefusalCases(String id) {
+    mockLogger.logEndpoint("CasesApiController", "casesByIdGet");
+    CaseDetailsDTO caseRequest = rmCaseManager.getRmRefusalCases(id);
+    if (caseRequest != null) {
+      log.info("GET  CaseId: {} : FOUND", id);
+      return new ResponseEntity<>(caseRequest, HttpStatus.ACCEPTED);
+    } else {
+      log.info("GET  CaseId: {} : NOT FOUND", id);
+      return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+  }
+
+  @Override
+  public ResponseEntity<CaseDetailsDTO> putRmRefusalCase(String id, @Valid CaseDetailsDTO body) {
+    mockLogger.logEndpoint("CasesApiController", "casesByIdPut");
+    String accept = request.getHeader("Accept");
+    log.info("Job Received: " + body.getCaseId() + " with accept: " + accept);
+    CaseDetailsDTO modelCase = mapperFacade.map(body, CaseDetailsDTO.class);
+    modelCase.setCaseId(UUID.fromString(id));
+    rmCaseManager.addCase(modelCase);
+    log.info("POST CaseId: {} : ADDED", id);
+    log.info("POST CaseId: {} : 'Ghost FWMT' Investigation", id);
+    log.info("============================================");
+    getCase(id, null);
+    log.info("============================================");
+    log.info("============================================");
     return new ResponseEntity<>(HttpStatus.OK);
   }
 }
