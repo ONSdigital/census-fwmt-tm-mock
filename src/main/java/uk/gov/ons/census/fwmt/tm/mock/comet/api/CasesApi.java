@@ -182,4 +182,5 @@ public interface CasesApi {
   ResponseEntity<CaseDetailsDTO> putRmRefusalCase(
           @ApiParam(value = "The RM Case identifier.", required = true) @PathVariable("id") String id,
           @ApiParam(value = "RM Refusal Case.") @Valid @RequestBody CaseDetailsDTO request);
+
 }
