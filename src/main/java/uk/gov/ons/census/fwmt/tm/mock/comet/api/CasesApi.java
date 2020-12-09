@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import uk.gov.ons.census.fwmt.common.data.nc.CaseDetailsDTO;
 import uk.gov.ons.census.fwmt.common.data.tm.*;
 
 import javax.validation.Valid;
@@ -153,4 +154,33 @@ public interface CasesApi {
   @RequestMapping(value = "/cases/{id}/pause", method = RequestMethod.DELETE)
   ResponseEntity<Void> deleteCasePause(
       @ApiParam(value = "The Case identifier.", required = true) @PathVariable("id") String id);
+
+  // GET RM API Refusal Cases
+  @ApiOperation(value = "Get a RM Refusal Case.", nickname = "getRmRefusalCases", response = CaseDetailsDTO.class, authorizations = {
+          @Authorization(value = "Client Credentials", scopes = {@AuthorizationScope(scope = "", description = "")}),
+          @Authorization(value = "Implicit", scopes = {@AuthorizationScope(scope = "", description = "")})
+  }, tags = {})
+  @ApiResponses(value = {
+          @ApiResponse(code = 200, message = "Case returned.", response = CaseDetailsDTO.class),
+          @ApiResponse(code = 404, message = "The Case does not exist.")})
+  @RequestMapping(value = "/cases/case-details/{id}", produces = {"application/json"}, method = RequestMethod.GET)
+  ResponseEntity<CaseDetailsDTO> getRmRefusalCases(
+          @ApiParam(value = "The Case identifier.", required = true) @PathVariable("id") String id);
+
+  // PUT  RM API Refusal Cases
+  @ApiOperation(value = "Create or update a RM Refusal Case.", nickname = "putRmRefusalCase", response = CaseDetailsDTO.class, authorizations = {
+          @Authorization(value = "Client Credentials", scopes = {@AuthorizationScope(scope = "", description = "")}),
+          @Authorization(value = "Implicit", scopes = {@AuthorizationScope(scope = "", description = "")})}, tags = {})
+  @ApiResponses(value = {
+          @ApiResponse(code = 200, message = "Case updated.", response = CaseDetailsDTO.class),
+          @ApiResponse(code = 201, message = "Case created.", response = CaseDetailsDTO.class),
+          @ApiResponse(code = 400, message = "Case has missing/invalid values.")})
+  @RequestMapping(value = "/cases/case-details/{id}",
+          produces = {"application/json"},
+          consumes = {"application/json-patch+json", "application/json", "text/json", "application/_*+json"},
+          method = RequestMethod.PUT)
+  ResponseEntity<CaseDetailsDTO> putRmRefusalCase(
+          @ApiParam(value = "The RM Case identifier.", required = true) @PathVariable("id") String id,
+          @ApiParam(value = "RM Refusal Case.") @Valid @RequestBody CaseDetailsDTO request);
+
 }
